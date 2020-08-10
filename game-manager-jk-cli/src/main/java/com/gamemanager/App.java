@@ -1,5 +1,8 @@
 package com.gamemanager;
 
+import lombok.extern.java.Log;
+
+@Log
 public class App {
 	
 	public static void main( String[] args ) throws Exception {
@@ -14,6 +17,8 @@ public class App {
 
 		manager.asSmod("pass")
 				.changeMap("mapName");
+		
+		log.info("Teste");
 
 	}
 }

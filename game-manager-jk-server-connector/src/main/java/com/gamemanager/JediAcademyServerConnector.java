@@ -14,7 +14,7 @@ public class JediAcademyServerConnector {
 	private final int port;
 	private static final byte OBB = (byte) 0xff;
 	
-	private static final int TIMEOUT_MILLISECONDS = 60000; // a minute
+	private static final int TIMEOUT_MILLISECONDS = 10000; // 10 sec
 	private static final int MAX_PACKET_SIZE = 65507;
 	private static final String OBB_HEADER_PLACEHOLDER = "xxxx";
 	

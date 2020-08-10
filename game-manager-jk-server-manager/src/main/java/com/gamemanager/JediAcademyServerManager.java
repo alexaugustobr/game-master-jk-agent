@@ -2,11 +2,9 @@ package com.gamemanager;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.extern.log4j.Log4j2;
 
 import java.util.Map;
 
-@Log4j2
 @AllArgsConstructor
 public class JediAcademyServerManager {
 
