@@ -1,10 +1,8 @@
 package com.gamemanager
 
-import lombok.Getter
 import java.util.*
 
-@Getter
-enum class ServerStatusType(private val key: String) {
+enum class ServerStatusType(val key: String) {
 
 	/* Basic info*/
 	GAME("game"),
