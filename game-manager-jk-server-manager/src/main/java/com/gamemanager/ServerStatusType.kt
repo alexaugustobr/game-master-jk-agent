@@ -1,16 +1,10 @@
-package com.gamemanager;
+package com.gamemanager
 
-import lombok.Getter;
+import java.util.*
 
-import java.util.Arrays;
-import java.util.Optional;
+enum class ServerStatusType(val key: String) {
 
-@Getter
-public enum ServerStatusType {
-	
-	
 	/* Basic info*/
-	
 	GAME("game"),
 	FDISABLE("fdisable"),
 	WDISABLE("wdisable"),
@@ -22,9 +16,9 @@ public enum ServerStatusType {
 	MAP_NAME("mapname"),
 	HOSTNAME("hostname"),
 	PROTOCOL("protocol"),
-	
+
 	/* Detailed status */
-	
+
 	G_DUEL_FRIENDLY_TEAM("g_DuelFriendlyTeam"),
 	G_DUEL_TIME_LIMIT("g_DuelTimeLimit"),
 	G_JEDI_VMERC("g_jediVmerc"),
@@ -64,18 +58,14 @@ public enum ServerStatusType {
 	G_SIEGE_TEAM1("g_siegeTeam1"),
 	G_SIEGE_TEAM2("g_siegeTeam2"),
 	RTV_RTM("RTVRTM"),
-	
+
 	UNKNOWN("Unknown");
-	
-	private final String key;
-	
-	ServerStatusType(String key) {
-		this.key = key;
-	}
-	
-	public static Optional<ServerStatusType> getEnumValueByKey(String key) {
-		return Arrays.stream(ServerStatusType.values())
-				.filter(serverInfoType -> serverInfoType.key.equals(key))
-				.findFirst();
+
+	companion object {
+		fun getEnumValueByKey(key: String): Optional<ServerStatusType> {
+			return Arrays.stream(values())
+					.filter { serverInfoType: ServerStatusType -> serverInfoType.key == key }
+					.findFirst()
+		}
 	}
 }

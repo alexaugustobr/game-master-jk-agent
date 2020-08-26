@@ -37,3 +37,5 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 .idea/
+/game-manager-jk-agent.iml
+/game-manager-jk-server-log-data-reader/game-manager-jk-server-log-data-reader.iml
