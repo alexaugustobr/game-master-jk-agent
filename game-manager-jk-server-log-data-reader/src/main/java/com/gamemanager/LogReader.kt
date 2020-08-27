@@ -11,7 +11,7 @@ import java.util.*
 import kotlin.streams.toList
 
 
-class JediAcademyLogDataReader(val file: File) {
+class LogReader(val file: File) {
 
 	fun onChat() : Chat {
 		return Chat(file)
@@ -61,9 +61,9 @@ class JediAcademyLogDataReader(val file: File) {
 				.map { toChatMessage(removeColorTags(it)) }
 				.toList()
 
-		fun removeColorTags(str: String): String = str.replace(Regex("\\^+[0-9]"), "")
+		private fun removeColorTags(str: String): String = str.replace(Regex("\\^+[0-9]"), "")
 
-		fun toChatMessage(str: String) : Message {
+		private fun toChatMessage(str: String) : Message {
 
 			val firstSeparator = str.indexOf(":")
 			val secondSeparator = str.indexOf(":", firstSeparator + 1)
@@ -77,7 +77,7 @@ class JediAcademyLogDataReader(val file: File) {
 			return Message(playerName, message)
 		}
 
-		fun getLastLineFromFile(file: File) : Long {
+		private fun getLastLineFromFile(file: File) : Long {
 			var lastLine = 0L
 			val fileScanner = Scanner(file)
 
@@ -89,7 +89,7 @@ class JediAcademyLogDataReader(val file: File) {
 			return lastLine
 		}
 
-		fun readLinesFromIndex(file: File, initalIndex: Long) : List<String> {
+		private fun readLinesFromIndex(file: File, initalIndex: Long) : List<String> {
 			var lastLine = 0L
 			val fileScanner = Scanner(file)
 			val lines = mutableListOf<String>()
@@ -106,7 +106,7 @@ class JediAcademyLogDataReader(val file: File) {
 			return lines
 		}
 
-		fun readAllMessages(): List<Message> = createChatMessageFromLines(file.readLines())
+		private fun readAllMessages(): List<Message> = createChatMessageFromLines(file.readLines())
 
 		data class Message(val playerName: String, val message: String)
 	}
@@ -116,8 +116,7 @@ class JediAcademyLogDataReader(val file: File) {
 suspend fun main() {
 	val file = File("/home/admin/server.log")
 
-	JediAcademyLogDataReader(file)
-			.onChat()
+	LogReader(file).onChat()
 			.watchChanges { println("${it.playerName}: ${it.message}") }
 			.await()
 
