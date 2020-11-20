@@ -17,7 +17,7 @@ open class JediAcademyServerConnector(
 	private val OBB_HEADER_PLACEHOLDER = "xxxx"
 
 	@Throws(IOException::class)
-	fun executeCommand(input: String): ByteArray {
+	fun doRequest(input: String): ByteArray {
 		return doRequest(formatInput(input))
 	}
 
@@ -52,6 +52,5 @@ open class JediAcademyServerConnector(
 	private fun formatInput(input: String): ByteArray {
 		return insertObbHeader((OBB_HEADER_PLACEHOLDER + input).toByteArray())
 	}
-
 
 }

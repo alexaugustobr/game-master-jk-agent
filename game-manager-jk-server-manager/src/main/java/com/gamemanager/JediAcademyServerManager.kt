@@ -1,8 +1,6 @@
 package com.gamemanager
 
 import com.gamemanager.ErrorMessages.ERROR_COMMUNICATING_WITH_THE_SERVER
-import com.gamemanager.JediAcademyCommandString.INFO_COMMAND
-import com.gamemanager.JediAcademyCommandString.STATUS_COMMAND
 
 open class JediAcademyServerManager(
 		val connector: JediAcademyServerConnector) {
@@ -19,25 +17,29 @@ open class JediAcademyServerManager(
 		return RootCommandSender(connector, pass)
 	}
 
-	open class AnonymousCommandSender(val connector: JediAcademyServerConnector) {
+	abstract class AbstractCommandSender(val connector: JediAcademyServerConnector) {
 
-		@Throws(CommunicatingWithServerException::class)
-		private fun <T>doCommand(command: JediAcademyCommandString, translator: (ByteArray) -> T) : T {
-			try {
-				return translator(connector.executeCommand(command.value))
-			} catch (e: Exception) {
-				throw CommunicatingWithServerException(ERROR_COMMUNICATING_WITH_THE_SERVER, e)
-			}
+		fun <T>executeCommand(command: JediAcademyCommand<T>) : T {
+			return command.runCatching { execute(connector::doRequest) }
+					.getOrElse { throw CommunicatingWithServerException(ERROR_COMMUNICATING_WITH_THE_SERVER, it) }
 		}
 
-		fun basicInfo() : Map<ServerStatusType, String> = doCommand(INFO_COMMAND, ServerStatusTranslator.Companion::translate)
-
-		fun detailedStatus(): Map<ServerStatusType, String> = doCommand(STATUS_COMMAND, ServerStatusTranslator.Companion::translate)
-
-		fun getPlayerCount(): Int = (basicInfo()[ServerStatusType.CLIENTS] ?: "0").toInt()
 	}
 
-	open class SmodCommandSender(connector: JediAcademyServerConnector, val pass: String) : AnonymousCommandSender(connector) {
+	class AnonymousCommandSender(connector: JediAcademyServerConnector) : AbstractCommandSender(connector) {
+
+		fun getBasicInfo() = executeCommand(JediAcademyCommand.Info())
+
+		fun getDetailedStatus() = executeCommand(JediAcademyCommand.Status())
+
+		fun getPlayerCount() = (getBasicInfo()[ServerStatusType.CLIENTS] ?: "0").toInt()
+
+		fun isServerAvailable()  = executeCommand(JediAcademyCommand.Connect())
+
+		fun getChallengeNumber()  = executeCommand(JediAcademyCommand.Challenge())
+	}
+
+	open class SmodCommandSender(connector: JediAcademyServerConnector, val pass: String) : AbstractCommandSender(connector) {
 		fun changeMap(mapName: String?) {
 			//TODO
 		}

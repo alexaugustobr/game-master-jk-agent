@@ -2,7 +2,7 @@ package com.gamemanager
 
 import java.util.*
 
-class ServerStatusTranslator {
+class StatusResponseTranslator {
 
 	companion object {
 

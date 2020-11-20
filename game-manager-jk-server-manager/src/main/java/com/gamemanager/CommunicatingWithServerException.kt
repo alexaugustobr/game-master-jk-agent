@@ -1,8 +1,8 @@
 package com.gamemanager
 
-class CommunicatingWithServerException : Exception {
+class CommunicatingWithServerException : RuntimeException {
 
-	constructor(message: String, ex: Exception): super(message, ex)
+	constructor(message: String, ex: Throwable): super(message, ex)
 
 	constructor(message: String): super(message)
 
