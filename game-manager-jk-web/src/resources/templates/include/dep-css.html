@@ -1,0 +1,74 @@
+<link rel="icon" th:href="@{/img/icon.ico}" type="image/x-icon"/>
+
+
+<link rel="stylesheet" th:href="@{/css/fonts.min.css}">
+<!-- Fonts and icons -->
+<script th:src="@{/js/plugin/webfont/webfont.min.js}"></script>
+
+<!-- CSS Files -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/atlantis.min.css}">
+
+<style>
+
+.container {
+  max-width: 1280px;
+}
+
+.card__item {
+  position: relative;
+  width: 100%;
+}
+.card__item:hover {
+	text-decoration: none;
+	background-color: #00000012;
+}
+.card__item .card__info {
+  min-height: 50px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+.card__item .card__info li {
+  list-style: none;
+}
+.card__item .card__botoes {
+  position: absolute;
+  right: 16px;
+  top: 12px;
+  display: flex;
+  align-items: center;
+}
+.card__item .card__botoes .btn__actions {
+  color: #808080;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: 0.5s;
+  background-color: transparent; !important;
+}
+.card__item .card__botoes .btn__actions:hover {
+  color: black;
+  background-color: transparent; !important;
+}
+
+
+
+
+
+.server-card a {
+    color: #575962;
+}
+
+.server-card a:focus,
+.server-card a:hover {
+   text-decoration: none;
+   background-color: #00000012;
+}
+
+
+</style>
+
+<input type="hidden" th:if="${message}" id="message" th:value="${message.body}"
+	   th:data-title="${message.title}" th:data-state="${message.state}">

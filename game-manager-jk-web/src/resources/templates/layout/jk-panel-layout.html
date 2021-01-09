@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Chozat - Admin - Jedi Academy</title>
+	<th:block th:replace="include/dep-css" />
+	<th:block layout:fragment="css"/>
+</head>
+
+<body>
+
+<main class="main">
+
+	<div class="wrapper">
+		<th:block th:include="/components/main-header"/>
+		<!-- Sidebar -->
+		<div class="sidebar sidebar-style-1">
+
+			<div class="sidebar-wrapper scrollbar scrollbar-inner">
+				<div class="sidebar-content">
+					<!-- <div class="user">
+						<div class="avatar-sm float-left mr-2">
+							<img src="../../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+						</div>
+						<div class="info">
+							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+								<span>
+									Daniel the Drone
+									<span class="user-level">Administrator</span>
+									<span class="caret"></span>
+								</span>
+							</a>
+							<div class="clearfix"></div>
+
+							<div class="collapse in" id="collapseExample">
+								<ul class="nav">
+									<li>
+										<a href="#profile">
+											<span class="link-collapse">My Profile</span>
+										</a>
+									</li>
+									<li>
+										<a href="#edit">
+											<span class="link-collapse">Edit Profile</span>
+										</a>
+									</li>
+									<li>
+										<a href="#settings">
+											<span class="link-collapse">Settings</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div> -->
+					<ul class="nav nav-primary">
+						<li class="nav-item">
+							<a th:href="@{/}">
+								<i class="fas fa-th-list"></i>
+								<p>Overview</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a data-toggle="collapse" href="#pluginsSubMenu">
+								<i class="fas fa-th-list"></i>
+								<p>Plugins</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="pluginsSubMenu">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="../sidebar-style-1.html">
+											<span class="sub-item">RTV</span>
+										</a>
+									</li>
+									<li>
+										<a href="../overlay-sidebar.html">
+											<span class="sub-item">ELO</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">
+								<i class="fas fa-th-list"></i>
+								<p>Players</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">
+								<i class="fas fa-th-list"></i>
+								<p>Graphs</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">
+								<i class="fas fa-th-list"></i>
+								<p>Maps</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">
+								<i class="fas fa-th-list"></i>
+								<p>Config</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">
+								<i class="fas fa-th-list"></i>
+								<p>Updates</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">
+								<i class="fas fa-th-list"></i>
+								<p>Power options</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">
+								<i class="fas fa-th-list"></i>
+								<p>Back</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="main-panel" layout:fragment="content"/>
+
+	</div>
+</main>
+
+<th:block th:replace="include/dep-js" />
+
+<th:block layout:fragment="javascript"/>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<th:block xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		  xmlns:th="http://www.thymeleaf.org"
+		  layout:decorate="~{layout/customer-panel-layout}">
+
+	<div layout:fragment="content">
+		<div class="content">
+			<div class="page-inner">
+				<div class="page-header">
+					<h4 class="page-title">Servers</h4>
+					<ul class="breadcrumbs">
+						<li class="nav-home">
+							<a th:href="@{/}">
+								<i class="flaticon-home"></i>
+							</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/__${customerId}__/servers}">Servers</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="row">
+<!--					<div class="container">-->
+<!--						<div class="card__item">-->
+
+<!--							<a href="www.google.com.br" target="_blank">-->
+<!--								<div class="card__info">-->
+<!--									Info info-->
+<!--								</div>-->
+<!--							</a>-->
+
+<!--							<div class="card__botoes">-->
+<!--								<a href="javascript:void(0);" class="btn__actions">-->
+<!--									<i class="fas fa-ellipsis-h fa-2x"></i>-->
+<!--								</a>-->
+<!--								<a href="javascript:void(0);" class="btn__actions">-->
+<!--									<i class="fas fa-ellipsis-h fa-2x"></i>-->
+<!--								</a>-->
+<!--							</div>-->
+
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div th:each="server : ${servers}" class="col-md-12" >-->
+<!--						<div class="card server-card mb-3">-->
+<!--							<div class="card__item">-->
+<!--								<a th:href="@{/__${customerId}__/servers/__${server.id}__}">-->
+<!--									<ul class="card__info">-->
+<!--										<li th:if="${server.enabled}">-->
+<!--											UP-->
+<!--										</li>-->
+<!--										<li th:if="${not server.enabled}">-->
+<!--											DOWN-->
+<!--										</li>-->
+<!--										<li th:text="${server.name}">-->
+<!--											[SS7] - Farm Open-->
+<!--										</li>-->
+<!--										<li th:text="|${server.maxPlayers} Slots|">-->
+<!--											10/32-->
+<!--										</li>-->
+<!--										<li th:text="${server.ip}">-->
+<!--											192.168.1.1-->
+<!--										</li>-->
+<!--										<li>-->
+<!--											<img th:src="@{/img/flags/__${server.location}__.png}" th:alt="${server.location}" />-->
+<!--										</li>-->
+<!--										&lt;!&ndash; <div class="col-sm-1 col-md-1">-->
+<!--											  <a><i class="icon-options-vertical"></i></a>-->
+<!--											</div>  &ndash;&gt;-->
+<!--									</ul>-->
+<!--								</a>-->
+<!--								<div class="card__botoes">-->
+<!--									<a href="javascript:void(0);" class="btn__actions">-->
+<!--										<i class="fas fa-ellipsis-h fa-2x"></i>-->
+<!--									</a>-->
+<!--									<a href="javascript:void(0);" class="btn__actions">-->
+<!--										<i class="icon-options-vertical"></i>-->
+<!--									</a>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+					<!--content-->
+					<!--server card-->
+					<div th:each="server : ${servers}" class="col-md-12">
+						<div class="card server-card border-primary mb-3 card__item">
+							<a th:href="@{/__${customerId}__/servers/__${server.id}__}" class="">
+								<div class="card-body card__info row">
+									<div class="col-sm-12 col-md-4">
+										<i th:if="${server.enabled}" class="fas fa-circle" style="color: green;"></i>
+										<i th:if="${not server.enabled}" class="fas fa-circle" style="color: red;"></i>
+										<th:block th:text="${server.name}" />
+									</div>
+									<div th:text="|Address: ${server.ip}" class="col-sm-5 col-md-4">
+										192.168.1.1
+									</div>
+									<div th:text="|Slots: ${server.maxPlayers}|" class="col-sm-3 col-md-3">
+										10/32
+									</div>
+									<div class="col-sm-1">
+										<img th:src="@{/img/flags/__${server.location}__.png}" th:alt="${server.location}" />
+									</div>
+									<!-- <div class="col-sm-1 col-md-1">
+				  <a><i class="icon-options-vertical"></i></a>
+				</div>  -->
+								</div>
+							</a>
+							<div class="card__botoes">
+<!--								<a href="javascript:void(0);" class="btn__actions" data-toggle="dropdown" style="margin-top: -5px;">-->
+<!--									<i class="fas fa-ellipsis-h fa-2x"></i>-->
+<!--								</a>-->
+<!--								<div class="dropdown-menu" aria-labelledby="btnGroupDrop4" x-placement="top-start"-->
+<!--									 style="position: absolute; transform: translate3d(0px, -74px, 0px); top: 0px; left: 0px; will-change: transform;">-->
+<!--									<a class="dropdown-item" th:href="@{/}">Disable</a>-->
+<!--									<a class="dropdown-item" th:href="@{/}">Enable</a>-->
+<!--								</div>-->
+<!--								<a href="javascript:void(0);" class="btn__actions" data-toggle="dropdown">-->
+<!--									<i class="icon-options-vertical"></i>-->
+<!--								</a>-->
+<!--								<div class="dropdown-menu" aria-labelledby="btnGroupDrop4" x-placement="top-start"-->
+<!--									 style="position: absolute; transform: translate3d(0px, -74px, 0px); top: 0px; left: 0px; will-change: transform;">-->
+<!--									<a class="dropdown-item" th:href="@{/}">Dropdown link</a>-->
+<!--									<a class="dropdown-item" th:href="@{/}">Dropdown link</a>-->
+<!--								</div>-->
+							</div>
+						</div>
+					</div>
+					<!--content-->
+					<!--server card-->
+<!--					<div th:each="server : ${servers}" class="col-md-12">-->
+<!--						<div class="card server-card border-primary mb-3">-->
+<!--							<a th:href="@{/__${customerId}__/servers/__${server.id}__}" class="">-->
+<!--								<div class="card-body">-->
+<!--									<div class="row">-->
+<!--										<div th:if="${server.enabled}" class="col-sm-2 col-md-1">-->
+<!--											UP-->
+<!--										</div>-->
+<!--										<div th:if="${not server.enabled}" class="col-sm-2 col-md-1">-->
+<!--											DOWN-->
+<!--										</div>-->
+<!--										<div th:text="${server.name}" class="col-sm-10 col-md-5">-->
+<!--											[SS7] - Farm Open-->
+<!--										</div>-->
+<!--										<div th:text="|${server.maxPlayers} Slots|" class="col-sm-2 col-md-2 d-none d-md-block">-->
+<!--											10/32-->
+<!--										</div>-->
+<!--										<div th:text="${server.ip}" class="col-md-3 d-none d-md-block">-->
+<!--											192.168.1.1-->
+<!--										</div>-->
+<!--										<div class="col-md-1 d-none d-md-block">-->
+<!--											<img th:src="@{/img/flags/__${server.location}__.png}" th:alt="${server.location}" />-->
+<!--										</div>-->
+<!--										&lt;!&ndash; <div class="col-sm-1 col-md-1">-->
+<!--					  <a><i class="icon-options-vertical"></i></a>-->
+<!--					</div>  &ndash;&gt;-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</a>-->
+<!--						</div>-->
+<!--					</div>-->
+				</div>
+			</div>
+		</div>
+
+		<th:block layout:fragment="javascript">
+
+			<script>
+
+			</script>
+
+		</th:block>
+
+</th:block>

@@ -1,0 +1,264 @@
+<th:block xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		  xmlns:th="http://www.thymeleaf.org"
+		  layout:decorate="~{layout/customer-panel-layout}">
+
+	<div layout:fragment="content">
+		<div class="content">
+			<div class="page-inner">
+				<div class="page-header">
+					<h4 class="page-title">Servers</h4>
+					<ul class="breadcrumbs">
+						<li class="nav-home">
+							<a th:href="@{/}">
+								<i class="flaticon-home"></i>
+							</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">Servers</a>
+						</li>
+					</ul>
+				</div>
+
+
+
+
+				<div class="row">
+					<!--content-->
+					<div class="col-md-12">
+						<div class="card server-card border-primary mb-3">
+							<a href="" class="">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-sm-2 col-md-1">
+											UP
+										</div>
+										<div class="col-sm-6 col-md-5">
+											[SS7] - Barn Fa
+										</div>
+										<div class="col-sm-2 col-md-2 d-none d-md-block">
+											10/32
+										</div>
+										<div class="col-md-3 d-none d-md-block">
+											192.168.1.1
+										</div>
+										<div class="col-md-1 d-none d-md-block">
+											GER
+										</div>
+										<!-- <div class="col-sm-1 col-md-1">
+					  <a><i class="icon-options-vertical"></i></a>
+					</div>  -->
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+
+				</div>
+
+
+				<div class="page-header">
+					<h4 class="page-title">Overview</h4>
+					<ul class="breadcrumbs">
+						<li class="nav-home">
+							<a th:href="@{/}">
+								<i class="flaticon-home"></i>
+							</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">Servers</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">[SS7] - Farm Open</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">Overview</a>
+						</li>
+					</ul>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-3">
+										<div class="icon-preview"><i class="icon-user"></i></div>
+										<div class="icon-class"></div>
+										<p>Users</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-6">
+						<ul class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark">
+								Server Activities
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+								<table class="table table-striped">
+									<thead>
+									<tr>
+										<th scope="col">Date</th>
+										<th scope="col">Action</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>10:30 - 10/10/2020</td>
+										<td>Player Bob joined</td>
+									</tr>
+									<tr>
+										<td>10:30 - 10/10/2020</td>
+										<td>Server restarted</td>
+									</tr>
+									</tbody>
+								</table>
+							</li>
+						</ul>
+					</div>
+
+					<div class="col-md-6">
+						<ul class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark">
+								Map Rotation
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+								<table class="table table-striped">
+									<thead>
+									<tr>
+										<th scope="col">Date</th>
+										<th scope="col">Map</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>10:30 - 10/10/2020</td>
+										<td>MB2 DOFT</td>
+									</tr>
+									<tr>
+										<td>10:30 - 11/10/2020</td>
+										<td>MB2 Mustafar</td>
+									</tr>
+									</tbody>
+								</table>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+
+
+
+
+				<div class="page-header">
+					<h4 class="page-title">Config</h4>
+					<ul class="breadcrumbs">
+						<li class="nav-home">
+							<a th:href="@{/}">
+								<i class="flaticon-home"></i>
+							</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">Servers</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">[SS7] - Farm Open</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/}">Config</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="row">
+
+					<div class="col-md-6">
+						<div class="card">
+							<h3 class="card-header bg-dark">Config File</h3>
+							<div class="card-body">
+								<p class="card-text">
+									Download the server config file or upload a new one.
+								</p>
+								<a th:href="@{/}" class="card-link">Download</a>
+								<button th:href="@{/}" class="btn btn-primary ml-3" data-toggle="modal" data-target="#uploadConfig">Upload</button>
+							</div>
+						</div>
+
+						<div class="modal" id="uploadConfig">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title">Upload config</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="/" method="GET">
+											<fieldset>
+												<div class="form-group">
+													<label for="inputFile">File</label>
+													<input type="file" class="form-control-file" id="inputFile" >
+													<!-- aria-describedby="fileHelp" <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small> -->
+												</div>
+											</fieldset>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn btn-primary">Save</button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+
+
+
+
+
+
+
+			</div>
+		</div>
+
+	<th:block layout:fragment="javascript">
+
+		<script>
+
+		</script>
+
+	</th:block>
+
+</th:block>

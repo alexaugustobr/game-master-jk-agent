@@ -1,0 +1,93 @@
+<th:block xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		  xmlns:th="http://www.thymeleaf.org"
+		  layout:decorate="~{layout/customer-panel-layout}">
+
+	<div layout:fragment="content">
+		<div class="content">
+			<div class="page-inner">
+				<div class="page-header">
+					<h4 class="page-title">Users</h4>
+					<ul class="breadcrumbs">
+						<li class="nav-home">
+							<a th:href="@{/}">
+								<i class="flaticon-home"></i>
+							</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/__${customerId}__/users}">Users</a>
+						</li>
+					</ul>
+					<div style="margin-left: auto;margin-right: 1em;">
+						<a class="btn btn-primary" style="float: right;" th:href="@{/__${customerId}__/users/new}">New User</a>
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<!--content-->
+					<!--server card-->
+					<div class="col-md-12">
+						<div class="mb-3 text-primary" style="margin-left: 1.25rem;">
+							<div class="row">
+								<div class="col col-md-3  d-none d-md-block">
+									Name
+								</div>
+								<div  class="col col-md-3 d-none d-md-block">
+									Email
+								</div>
+								<div class="col col-md-3  d-none d-md-block">
+									Role
+								</div>
+								<div class="col col-md-3  d-none d-md-block">
+									Status
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<!--content-->
+					<!--server card-->
+					<div th:each="user : ${users}" class="col-md-12">
+						<div class="card server-card border-primary mb-3">
+							<a th:href="@{/__${customerId}__/users/__${user.id}__}" class="">
+								<div class="card-body">
+									<div class="row">
+										<div th:text="${user.name}" class="col-sm-5 col-md-3">
+											Bob
+										</div>
+										<div th:text="${user.email}" class="col-sm-5 col-md-3">
+											bob@gmail.com
+										</div>
+										<div th:text="${user.role}" class="col-sm-2 col-md-3  d-none d-md-block class="text-capitalize"">
+											ADMIN
+										</div>
+										<div th:unless="${user.enabled}" class="col-sm-2 col-md-3  d-none d-md-block">
+											<p>Blocked</p>
+										</div>
+										<div th:if="${user.enabled}" class="col-sm-2 col-md-3  d-none d-md-block">
+											Enabled
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<th:block layout:fragment="javascript">
+
+			<script>
+
+			</script>
+
+		</th:block>
+
+</th:block>

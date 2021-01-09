@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Login</title>
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="/img/icon.ico" type="image/x-icon"/>
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/atlantis.min.css}">
+	<link rel="stylesheet" th:href="@{/css/fonts.min.css}">
+	<style>
+		/*     	Login     */
+.login {
+  background: #efefee; }
+  .login .wrapper.wrapper-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: unset;
+    padding: 15px; }
+    .login .wrapper.wrapper-login .container-login, .login .wrapper.wrapper-login .container-signup {
+      width: 400px;
+      padding: 60px 25px;
+      border-radius: 5px; }
+      .login .wrapper.wrapper-login .container-login:not(.container-transparent), .login .wrapper.wrapper-login .container-signup:not(.container-transparent) {
+        background: #ffffff;
+        -webkit-box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+        -moz-box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+        box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+        border: 1px solid #ebecec; }
+      .login .wrapper.wrapper-login .container-login h3, .login .wrapper.wrapper-login .container-signup h3 {
+        font-size: 19px;
+        font-weight: 600;
+        margin-bottom: 25px; }
+      .login .wrapper.wrapper-login .container-login .form-sub, .login .wrapper.wrapper-login .container-signup .form-sub {
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 10px; }
+      .login .wrapper.wrapper-login .container-login .btn-login, .login .wrapper.wrapper-login .container-signup .btn-login {
+        padding: 15px 0;
+        width: 135px; }
+      .login .wrapper.wrapper-login .container-login .form-action, .login .wrapper.wrapper-login .container-signup .form-action {
+        text-align: center;
+        padding: 25px 10px 0; }
+      .login .wrapper.wrapper-login .container-login .form-action-d-flex, .login .wrapper.wrapper-login .container-signup .form-action-d-flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; }
+      .login .wrapper.wrapper-login .container-login .login-account, .login .wrapper.wrapper-login .container-signup .login-account {
+        padding-top: 10px;
+        text-align: center; }
+    .login .wrapper.wrapper-login .container-signup .form-action {
+      display: flex;
+      justify-content: center; }
+  .login .wrapper.wrapper-login-full {
+    justify-content: unset;
+    align-items: unset;
+    padding: 0 !important; }
+  .login .login-aside {
+    padding: 25px; }
+    .login .login-aside .title {
+      font-size: 36px; }
+    .login .login-aside .subtitle {
+      font-size: 18px; }
+  .login .show-password {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    cursor: pointer; }
+  .login .custom-control-label {
+    white-space: nowrap; }
+
+@media screen and (max-width: 576px) {
+  .form-action-d-flex {
+    flex-direction: column;
+    align-items: start !important; }
+
+  .login .wrapper-login-full {
+    flex-direction: column; }
+  .login .login-aside {
+    width: 100% !important; }
+    .login .login-aside .title {
+      font-size: 24px; }
+    .login .login-aside .subtitle {
+      font-size: 16px; } }
+@media screen and (max-width: 399px) {
+  .wrapper-login {
+    padding: 15px !important; }
+
+  .container-login {
+    width: 100% !important;
+    padding: 60px 15px !important; } }
+	</style>
+</head>
+<body class="login">
+<div class="wrapper wrapper-login wrapper-login-full p-0">
+	<div class="login-aside w-50 d-flex flex-column align-items-center
+	justify-content-center text-center bg-dark">
+<!--		<p class="subtitle text-white op-7">Admin panel</p>-->
+		<img th:src="@{/img/chozatglow.jpg}">
+		<h1 class="title fw-bold text-white mb-3">Chozat</h1>
+
+	</div>
+	<div class="login-aside w-50 d-flex align-items-center justify-content-center bg-light ">
+		<form th:action="@{/login}" method="post"
+			  class="container container-login container-transparent animated fadeIn card border-dark mb-3">
+			<h3 class="text-center">Sign In To Admin</h3>
+			<div class="login-form">
+				<div class="form-group">
+					<label for="username" class="placeholder"><b>Email</b></label>
+					<input id="username" name="username" type="text" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="password" class="placeholder"><b>Password</b></label>
+<!--					<a th:href="@{/}" class="link float-right">Forget Password ?</a>-->
+					<div class="position-relative">
+						<input id="password" name="password" type="password" class="form-control" required>
+						<div class="show-password">
+							<i class="icon-eye"></i>
+						</div>
+					</div>
+				</div>
+				<div class="form-group form-action-d-flex mb-3">
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input" id="rememberme">
+						<label class="custom-control-label m-0" for="rememberme">Remember Me</label>
+					</div>
+					<button type="submit" class="btn btn-primary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Sign In</button>
+				</div>
+				<div class="login-account">
+<!--					<span class="msg">Don't have an account yet ?</span>-->
+<!--					<a th:href="@{/}" id="show-signup" class="link">Sign Up</a>-->
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script th:src="@{/js/core/jquery.3.2.1.min.js}"></script>
+<script th:src="@{/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js}"></script>
+<script th:src="@{/js/core/popper.min.js}"></script>
+<script th:src="@{/js/core/bootstrap.min.js}"></script>
+<script th:src="@{/js/atlantis.min.js}"></script>
+</body>
+</html>
