@@ -26,11 +26,9 @@ public class PowerOptionsController {
 	
 	private final ServerRepository serverRepository;
 	private final DefaultExecutor executor = new DefaultExecutor();
-	private boolean executing;
 	
 	@GetMapping
 	public String powerOptions(Model model) {
-		model.addAttribute("executing", executing);
 		return "power-options";
 	}
 	
