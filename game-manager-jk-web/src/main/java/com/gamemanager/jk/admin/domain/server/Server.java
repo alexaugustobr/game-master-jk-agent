@@ -46,7 +46,7 @@ public class Server {
 	private String jampFolderPath;
 	
 	public String getNameWithoutColors() {
-		return name.replaceAll("\\^+[0-9]", "");
+		return NameUtils.removeColorTags(name);
 	}
 	
 	public File getConfigFile() {

@@ -1,6 +1,10 @@
 package com.gamemanager;
 
+import org.testcontainers.shaded.org.apache.commons.lang.StringUtils;
+
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class ServerStatusTranslator {
 	
@@ -9,6 +13,42 @@ public final class ServerStatusTranslator {
 	private static final String[] VALID_MESSAGE_HEADERS = {"infoResponse","statusResponse"};
 	
 	private static final String REPLACEMENT_PLACE_HOLDER = "#SPLIT#";
+	
+	public static List<String> playerList(byte[] byteMessage) throws UnreadableMessageException {
+		if (byteMessage == null || byteMessage.length == 0) {
+			throw new UnreadableMessageException(ErrorMessages.ERROR_MESSAGE_IS_EMPTY);
+		}
+		
+		String statusMessage = new String(byteMessage);
+		
+		String[] rawPlayerList = statusMessage.split("\n");
+		
+		rawPlayerList[0] = null; //status
+		rawPlayerList[1] = null; //status
+		
+		rawPlayerList[rawPlayerList.length-1] = null;  //unused
+		
+		List<String> playerNames = new ArrayList<>();
+		
+		for (String rawPlayerName : rawPlayerList) {
+			if (StringUtils.isNotBlank(rawPlayerName)) {
+				
+				try {
+					final String regex = "(\"(.*?)\")";
+					Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+					Matcher matcher = pattern.matcher(rawPlayerName);
+					
+					matcher.find();
+					
+					playerNames.add(matcher.group(2));
+				} catch (Exception e) {
+				
+				}
+			}
+		}
+		
+		return playerNames;
+	}
 	
 	public static Map<ServerStatusType, String> translate(byte[] byteMessage) throws UnreadableMessageException {
 		

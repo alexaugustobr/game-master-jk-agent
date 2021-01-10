@@ -32,8 +32,8 @@ public class ConfigDataLoader implements ApplicationRunner {
 		String server = configManager.getConfig(ConfigManager.ConfigKey.SV_HOSTNAME).orElse("MB2 Server");
 		
 		serverRepository.save(Server.builder()
-				.ip(properties.getIp())
-				.port(properties.getPort())
+				.ip("45.76.249.119")
+				.port(29071)
 				.type(properties.getType())
 				.logPath(properties.getLogPath())
 				.openJKLogPath(properties.getOpenJKLogPath())

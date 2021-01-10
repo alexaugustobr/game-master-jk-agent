@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -29,8 +30,8 @@ public class JediAcademyServerManager {
 		
 		private final JediAcademyServerConnector connector;
 		
-		private static final String INFO_COMMAND = "getinfo";
-		private static final String STATUS_COMMAND = "getstatus";
+		private static final String BASIC_INFO_COMMAND = "getinfo";
+		private static final String DETAILED_INFO_COMMAND = "getstatus";
 		
 		public Map<ServerStatusType, String> getStatus() throws CommunicatingWithServerException {
 			Map<ServerStatusType, String> status = new LinkedHashMap<>();
@@ -41,7 +42,7 @@ public class JediAcademyServerManager {
 		
 		public Map<ServerStatusType, String> getBasicInfo() throws CommunicatingWithServerException {
 			try {
-				byte[] outputMessage = connector.executeCommand(INFO_COMMAND);
+				byte[] outputMessage = connector.executeCommand(BASIC_INFO_COMMAND);
 				return ServerStatusTranslator.translate(outputMessage);
 			} catch (Exception e) {
 				throw new CommunicatingWithServerException(ErrorMessages.ERROR_COMMUNICATING_WITH_THE_SERVER, e);
@@ -50,7 +51,7 @@ public class JediAcademyServerManager {
 		
 		public Map<ServerStatusType, String> getDetailedInfo() throws CommunicatingWithServerException {
 			try {
-				byte[] outputMessage = connector.executeCommand(STATUS_COMMAND);
+				byte[] outputMessage = connector.executeCommand(DETAILED_INFO_COMMAND);
 				return ServerStatusTranslator.translate(outputMessage);
 			} catch (Exception e) {
 				throw new CommunicatingWithServerException(ErrorMessages.ERROR_COMMUNICATING_WITH_THE_SERVER, e);
@@ -62,6 +63,14 @@ public class JediAcademyServerManager {
 			return Integer.parseInt(status.getOrDefault(ServerStatusType.CLIENTS, "0"));
 		}
 		
+		public List<String> getPLayers() throws CommunicatingWithServerException {
+			try {
+				byte[] outputMessage = connector.executeCommand(DETAILED_INFO_COMMAND);
+				return ServerStatusTranslator.playerList(outputMessage);
+			} catch (Exception e) {
+				throw new CommunicatingWithServerException(ErrorMessages.ERROR_COMMUNICATING_WITH_THE_SERVER, e);
+			}
+		}
 	}
 	
 	@Getter

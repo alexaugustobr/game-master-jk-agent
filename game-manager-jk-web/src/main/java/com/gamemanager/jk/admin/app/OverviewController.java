@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -37,26 +38,33 @@ public class OverviewController {
 		
 		Server server = serverRepository.findFirst();
 		
+		
+		
 		try {
 			JediAcademyServerConnector connector = new JediAcademyServerConnector(server.getIp(),
 					server.getPort());
 
 			JediAcademyServerManager jediAcademyServerManager = new JediAcademyServerManager(connector);
-
+			
+			List<String> players = jediAcademyServerManager.asAnonymous().getPLayers();
+			
+			//jediAcademyServerManager.
+			
 			Map<ServerStatusType, String> status = jediAcademyServerManager.asAnonymous().getStatus();
 			
 			ServerOverviewModel overview = new ServerOverviewModel();
 			overview.parse(status);
-			
+			overview.setPlayers(players);
 			
 			model.addAttribute("overview", overview);
-			
+			model.addAttribute("error", false);
 			return "overview";
 		} catch (Exception e) {
 			String msg = String.format("Error when trying to connect to the server %s:%s.", server.getIp(), server.getPort());
 			log.error(msg, e);
-			attributes.addFlashAttribute("message", MessageModel.error(msg));
-			return "redirect:/500";
+			model.addAttribute("message", MessageModel.error(msg));
+			model.addAttribute("error", true);
+			return "overview";
 		}
 		
 	}
