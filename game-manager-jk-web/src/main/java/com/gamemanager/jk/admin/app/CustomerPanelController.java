@@ -108,11 +108,12 @@ public class CustomerPanelController {
 							BindingResult bindingResult,
 							Model model,
 							@AuthenticationPrincipal User authUser) {
-		User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
 		
+		User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
 		
 		model.addAttribute("userEditInput", new UserEditInput(user));
 		model.addAttribute("roles", User.Role.getRolesAvailableFor(authUser));
+		
 		return "customer-panel/users-edit";
 	}
 	

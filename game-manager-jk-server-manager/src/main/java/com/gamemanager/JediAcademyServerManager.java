@@ -3,6 +3,7 @@ package com.gamemanager;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -31,6 +32,13 @@ public class JediAcademyServerManager {
 		private static final String INFO_COMMAND = "getinfo";
 		private static final String STATUS_COMMAND = "getstatus";
 		
+		public Map<ServerStatusType, String> getStatus() throws CommunicatingWithServerException {
+			Map<ServerStatusType, String> status = new LinkedHashMap<>();
+			status.putAll(getBasicInfo());
+			status.putAll(getDetailedInfo());
+			return status;
+		}
+		
 		public Map<ServerStatusType, String> getBasicInfo() throws CommunicatingWithServerException {
 			try {
 				byte[] outputMessage = connector.executeCommand(INFO_COMMAND);
@@ -40,7 +48,7 @@ public class JediAcademyServerManager {
 			}
 		}
 		
-		public Map<ServerStatusType, String> getDetailedStatus() throws CommunicatingWithServerException {
+		public Map<ServerStatusType, String> getDetailedInfo() throws CommunicatingWithServerException {
 			try {
 				byte[] outputMessage = connector.executeCommand(STATUS_COMMAND);
 				return ServerStatusTranslator.translate(outputMessage);

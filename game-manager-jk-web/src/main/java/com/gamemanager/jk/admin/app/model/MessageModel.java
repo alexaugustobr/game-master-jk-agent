@@ -25,4 +25,12 @@ public class MessageModel {
 				.build();
 	}
 	
+	public static MessageModel error(String body) {
+		return MessageModel.builder()
+				.body(body)
+				.title("Error!")
+				.state("error")
+				.build();
+	}
+	
 }
