@@ -1,16 +1,14 @@
 package com.gamemanager.jk.admin.domain.user;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, UUID> {
-	Optional<User> findByEmail(String email);
+public interface UserRepository {
 	
-	List<User> findAllByCustomerId(UUID customerId);
+	Optional<User> findByUserName(String userName);
+	
+	User save(User user);
 	
 }

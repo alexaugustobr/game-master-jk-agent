@@ -19,20 +19,7 @@ public class HomeController {
 			return "redirect:/login";
 		}
 		
-		if (User.Type.CUSTOMER.equals(user.getType())) {
-			return String.format("redirect:/%s/servers", user.getCustomer().getId());
-		}
-		
-		if (User.Type.BUSINESS.equals(user.getType())) {
-			return "redirect:/admin/servers";
-		}
-		
-		if (User.Type.SYSTEM.equals(user.getType())) {
-			//TODO EXCEPTION
-			return "redirect:/logoff";
-		}
-		
-		return "home";
+		return "redirect:/admin";
 	}
 	
 }

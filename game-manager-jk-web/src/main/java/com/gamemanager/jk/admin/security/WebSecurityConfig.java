@@ -12,8 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	private final PasswordEncoder passwordEncoder;
 	private final UserDetailsService userDetailsService;
+	private final PasswordEncoder passwordEncoder;
 	
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and()
@@ -24,9 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/img/**").permitAll()
 				.antMatchers("/fonts/**").permitAll()
 			.antMatchers("/admin/**")
-				.hasAnyRole("ROOT_BUSINESS", "ADMIN_BUSINESS", "ASSISTANT_BUSINESS")
-			.antMatchers("/[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/**")
-				.hasAnyRole("ROOT_BUSINESS", "ADMIN_BUSINESS", "ASSISTANT_BUSINESS", "ROOT_CUSTOMER", "ADMIN_CUSTOMER", "ASSISTANT_CUSTOMER")
+				.hasAnyRole("RCON", "SMOD", "SYSTEM")
 			.antMatchers("/login*").permitAll()
 			.anyRequest().authenticated()
 			.and()
