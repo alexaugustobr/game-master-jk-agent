@@ -28,50 +28,71 @@
 					</ul>
 				</div>
 
-
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="card">
-							<div class="card-body">
-								<div class="row">
-									<div class="col-md-3">
-										<div class="icon-preview"><i class="icon-user"></i></div>
-										<div class="icon-class"></div>
-										<p>Users</p>
-									</div>
-								</div>
-							</div>
+				<th:block th:if="${error}">
+					<div class="row">
+						<div class="col-md-6">
+							<ul class="list-group">
+								<li class="list-group-item d-flex justify-content-between align-items-center bg-dark">
+									Server
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									No info found, the server looks offline or unreachable.
+								</li>
+							</ul>
 						</div>
 					</div>
-				</div>
+				</th:block>
 
+				<th:block th:unless="${error}">
+					<!--summary-->
+					<div class="row">
+						<div class="col-md-6">
+							<ul class="list-group">
+								<li th:text="${overview.serverNameWithoutColors}"
+									class="list-group-item d-flex justify-content-between align-items-center bg-dark">
+									Server
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									<ul style="maring: 0px">
+										<li th:text="|Address: ${overview.address}|"></li>
+										<li th:text="|Players: ${overview.playersCount}/${overview.maxSlots}|"></li>
+										<li th:text="|Map: ${overview.mapName}|"></li>
+										<li th:text="|Version: ${overview.gameNameAndVersion}|"></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					<!--graph player-->
 
-				<div class="row">
-					<div class="col-md-6">
-						<ul class="list-group">
-							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark">
-								Players
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center">
-								<table class="table table-striped">
-									<thead>
+						<div class="col-md-6">
+							<ul class="list-group">
+								<li class="list-group-item d-flex justify-content-between align-items-center bg-dark">
+									Players
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									<table th:unless="${#lists.isEmpty(overview.players)}" class="table table-striped">
+										<thead>
 										<tr>
+											<th scope="col">#</th>
 											<th scope="col">Name</th>
 										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>MB2 DOFT</td>
+										</thead>
+										<tbody>
+										<tr th:each="player, i : ${overview.playersWithoutColors}">
+											<td th:text="${i.index}">MB2 DOFT</td>
+											<td th:text="${player}">MB2 DOFT</td>
 										</tr>
-										<tr>
-											<td>MB2 Mustafar</td>
-										</tr>
-									</tbody>
-								</table>
-							</li>
-						</ul>
+										</tbody>
+									</table>
+									<div th:if="${#lists.isEmpty(overview.players)}">
+										The server is empty.
+									</div>
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>
+				</th:block>
+
 			</div>
 		</div>
 

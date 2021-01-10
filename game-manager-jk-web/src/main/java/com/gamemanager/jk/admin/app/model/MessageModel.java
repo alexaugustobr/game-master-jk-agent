@@ -25,11 +25,11 @@ public class MessageModel {
 				.build();
 	}
 	
-	public static MessageModel error(String body) {
+	public static MessageModel danger(String body) {
 		return MessageModel.builder()
 				.body(body)
 				.title("Error!")
-				.state("error")
+				.state("danger")
 				.build();
 	}
 	

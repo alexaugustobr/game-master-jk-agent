@@ -71,7 +71,7 @@ public class ConfigUploadController {
 		} catch (Exception e) {
 			String msg = String.format("Error when trying update the server config %s:%s.", server.getIp(), server.getPort());
 			log.error(msg, e);
-			attributes.addFlashAttribute("message", MessageModel.error(msg));
+			attributes.addFlashAttribute("message", MessageModel.danger(msg));
 			return "redirect:/server/config";
 		}
 	}

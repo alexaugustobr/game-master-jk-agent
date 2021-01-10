@@ -48,13 +48,14 @@ public class OverviewController {
 			
 			List<String> players = jediAcademyServerManager.asAnonymous().getPLayers();
 			
-			//jediAcademyServerManager.
-			
 			Map<ServerStatusType, String> status = jediAcademyServerManager.asAnonymous().getStatus();
 			
 			ServerOverviewModel overview = new ServerOverviewModel();
 			overview.parse(status);
 			overview.setPlayers(players);
+			
+			overview.setIp(server.getIp());
+			overview.setPort(server.getPort());
 			
 			model.addAttribute("overview", overview);
 			model.addAttribute("error", false);
@@ -62,7 +63,7 @@ public class OverviewController {
 		} catch (Exception e) {
 			String msg = String.format("Error when trying to connect to the server %s:%s.", server.getIp(), server.getPort());
 			log.error(msg, e);
-			model.addAttribute("message", MessageModel.error(msg));
+			model.addAttribute("message", MessageModel.danger(msg));
 			model.addAttribute("error", true);
 			return "overview";
 		}
