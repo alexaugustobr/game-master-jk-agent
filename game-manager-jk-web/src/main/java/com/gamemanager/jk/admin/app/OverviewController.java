@@ -4,6 +4,7 @@ import com.gamemanager.JediAcademyServerConnector;
 import com.gamemanager.JediAcademyServerManager;
 import com.gamemanager.ServerStatusType;
 import com.gamemanager.jk.admin.app.model.MessageModel;
+import com.gamemanager.jk.admin.app.model.ServerOverviewModel;
 import com.gamemanager.jk.admin.domain.server.Server;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import com.gamemanager.jk.admin.domain.user.User;
@@ -12,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -29,6 +31,7 @@ public class OverviewController {
 	
 	@GetMapping
 	public String jk(@AuthenticationPrincipal User user,
+					 Model model,
 					 RedirectAttributes attributes) {
 		
 		
@@ -41,30 +44,13 @@ public class OverviewController {
 			JediAcademyServerManager jediAcademyServerManager = new JediAcademyServerManager(connector);
 
 			Map<ServerStatusType, String> status = jediAcademyServerManager.asAnonymous().getStatus();
-
-			//MAP_NAME
-			//G_AUTHENTICITY
-			//GAME_NAME
-			//SV_HOSTNAME
-			//G_NEED_PASS
-			//G_GAME_TYPE = 7 mb2
-
-
-
-			//NEEDPASS
-			//GAME
-			//CLIENTS
-			//MAP_NAME
-			//HOSTNAME
-
-			String playersCount = status.get(ServerStatusType.CLIENTS);
-			String maxSlots = status.get(ServerStatusType.SV_MAXCLIENTS);
-			String gameName = status.get(ServerStatusType.GAME);//MBII / JK
-			String mapName = status.get(ServerStatusType.MAP_NAME);
-
-			String gameNameAndVersion = status.get(ServerStatusType.G_NEED_PASS);// Movie Battles II V1.7.1
-			String authenticity = status.get(ServerStatusType.G_AUTHENTICITY);// Movie Battles II V1.7.1
-
+			
+			ServerOverviewModel overview = new ServerOverviewModel();
+			overview.parse(status);
+			
+			
+			model.addAttribute("overview", overview);
+			
 			return "overview";
 		} catch (Exception e) {
 			String msg = String.format("Error when trying to connect to the server %s:%s.", server.getIp(), server.getPort());
@@ -74,5 +60,6 @@ public class OverviewController {
 		}
 		
 	}
+	
 	
 }
