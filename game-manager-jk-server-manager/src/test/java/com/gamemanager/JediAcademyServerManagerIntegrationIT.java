@@ -14,17 +14,17 @@ import java.net.UnknownHostException;
 
 @RunWith(JUnit4.class)
 //@Category(Integration.class) //TODO
-public class JediAcademyServerManagerIntegrationTest {
+public class JediAcademyServerManagerIntegrationIT {
 	
 	@ClassRule
 	public static DockerComposeContainer environment;
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(JediAcademyServerManagerIntegrationTest.class);
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(JediAcademyServerManagerIntegrationIT.class);
 	
 	static Slf4jLogConsumer logConsumer = new Slf4jLogConsumer(log);
 	
 	static {
 		try {
-			environment = new DockerComposeContainer(new File(JediAcademyServerManagerIntegrationTest.class.getResource( "/docker-compose.yml" ).toURI()))
+			environment = new DockerComposeContainer(new File(JediAcademyServerManagerIntegrationIT.class.getResource( "/docker-compose.yml" ).toURI()))
 					.withLocalCompose(true)
 					.withLogConsumer("ffa", logConsumer);
 		} catch (URISyntaxException e) {
