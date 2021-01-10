@@ -35,6 +35,8 @@
     <module>game-manager-jk-cli</module>
     <module>game-manager-jk-server-manager</module>
     <module>game-manager-jk-server-connector</module>
+    <module>game-manager-jk-server-log-data-reader</module>
+    <module>game-manager-jk-server-config-reader</module>
   </modules>
 
   <dependencies>

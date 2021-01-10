@@ -20,6 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
 	
 	@Override
 	public User save(User user) {
-		return users.put(user.getUsername(), user);
+		users.put(user.getUsername(), user);
+		return user;
 	}
 }

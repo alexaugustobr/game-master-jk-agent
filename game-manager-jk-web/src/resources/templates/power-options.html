@@ -1,0 +1,60 @@
+<th:block xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		  xmlns:th="http://www.thymeleaf.org"
+		  layout:decorate="~{layout/jk-panel-layout}">
+
+	<div layout:fragment="content">
+		<div class="content">
+			<div class="page-inner">
+
+				<div class="page-header">
+					<h4 class="page-title">Power options</h4>
+					<ul class="breadcrumbs">
+						<li class="nav-home">
+							<a th:href="@{/}">
+								<i class="flaticon-home"></i>
+							</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/servers}">Servers</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/servers/power-options}">Power options</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="row">
+
+					<div class="col-md-6">
+						<div class="card">
+							<h3 class="card-header bg-dark">Power options</h3>
+							<div class="card-body">
+								<p class="card-text">Choose a command to the server.</p>
+								<a style="margin-right: 15px;" th:href="@{/server/power-options/poweron}" class="btn btn-info">Power On</a>
+								<a style="margin-right: 15px;" th:href="@{/server/power-options/poweroff}" class="btn btn-danger">Power Off</a>
+								<a style="margin-right: 15px;" th:href="@{/server/power-options/restart}" class="btn btn-primary">Restart</a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+
+	<th:block layout:fragment="javascript">
+
+		<script>
+
+		</script>
+
+	</th:block>
+
+</th:block>

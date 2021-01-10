@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.File;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,6 +31,12 @@ public class Server {
 	
 	private String restartCommand;
 	
+	private String poweroffCommand;
+	
+	private String poweronCommand;
+	
+	private String updateCommand;
+	
 	private String soutCommand;
 	
 	private Type type;
@@ -36,6 +44,14 @@ public class Server {
 	private String serverHomePath;
 	
 	private String jampFolderPath;
+	
+	public String getNameWithoutColors() {
+		return name.replaceAll("\\^+[0-9]", "");
+	}
+	
+	public File getConfigFile() {
+		return new File(this.configPath);
+	}
 	
 	public enum Type {
 		JAMP,

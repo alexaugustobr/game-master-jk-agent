@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/js/**").permitAll()
 				.antMatchers("/img/**").permitAll()
 				.antMatchers("/fonts/**").permitAll()
-			.antMatchers("/admin/**")
+			.antMatchers("/server/**")
 				.hasAnyRole("RCON", "SMOD", "SYSTEM")
 			.antMatchers("/login*").permitAll()
 			.anyRequest().authenticated()

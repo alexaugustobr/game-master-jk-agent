@@ -60,7 +60,7 @@
 					</div> -->
 					<ul class="nav nav-primary">
 						<li class="nav-item">
-							<a th:href="@{/}">
+							<a th:href="@{/server}">
 								<i class="fas fa-th-list"></i>
 								<p>Overview</p>
 							</a>
@@ -74,60 +74,60 @@
 							<div class="collapse" id="pluginsSubMenu">
 								<ul class="nav nav-collapse">
 									<li>
-										<a href="../sidebar-style-1.html">
+										<a th:href="@{/server/plugins/rtv}">
 											<span class="sub-item">RTV</span>
 										</a>
 									</li>
-									<li>
-										<a href="../overlay-sidebar.html">
-											<span class="sub-item">ELO</span>
-										</a>
-									</li>
+<!--									<li>-->
+<!--										<a th:href="@{/server/plugins/elo}">-->
+<!--											<span class="sub-item">ELO</span>-->
+<!--										</a>-->
+<!--									</li>-->
 								</ul>
 							</div>
 						</li>
 						<li class="nav-item">
-							<a th:href="@{/}">
+							<a th:href="@{/server/players}">
 								<i class="fas fa-th-list"></i>
 								<p>Players</p>
 							</a>
 						</li>
+<!--						<li class="nav-item">-->
+<!--							<a th:href="@{/}">-->
+<!--								<i class="fas fa-th-list"></i>-->
+<!--								<p>Graphs</p>-->
+<!--							</a>-->
+<!--						</li>-->
 						<li class="nav-item">
-							<a th:href="@{/}">
-								<i class="fas fa-th-list"></i>
-								<p>Graphs</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a th:href="@{/}">
+							<a th:href="@{/server/maps}">
 								<i class="fas fa-th-list"></i>
 								<p>Maps</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a th:href="@{/}">
+							<a th:href="@{/server/config}">
 								<i class="fas fa-th-list"></i>
 								<p>Config</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a th:href="@{/}">
+							<a th:href="@{/server/update}">
 								<i class="fas fa-th-list"></i>
 								<p>Updates</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a th:href="@{/}">
+							<a th:href="@{/server/power-options}">
 								<i class="fas fa-th-list"></i>
 								<p>Power options</p>
 							</a>
 						</li>
-						<li class="nav-item">
-							<a th:href="@{/}">
-								<i class="fas fa-th-list"></i>
-								<p>Back</p>
-							</a>
-						</li>
+<!--						<li class="nav-item">-->
+<!--							<a th:href="@{/server}">-->
+<!--								<i class="fas fa-th-list"></i>-->
+<!--								<p>Back</p>-->
+<!--							</a>-->
+<!--						</li>-->
 					</ul>
 				</div>
 			</div>

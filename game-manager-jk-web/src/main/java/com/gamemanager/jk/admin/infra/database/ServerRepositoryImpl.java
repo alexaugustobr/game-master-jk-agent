@@ -1,14 +1,14 @@
 package com.gamemanager.jk.admin.infra.database;
 
 import com.gamemanager.jk.admin.domain.server.Server;
-import com.gamemanager.jk.admin.domain.server.SigleServerRepository;
+import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Component
-public class SigleServerRepositoryImpl implements SigleServerRepository {
+public class ServerRepositoryImpl implements ServerRepository {
 	
 	private Map<String, Server> servers = new LinkedHashMap<>();
 	
@@ -19,6 +19,7 @@ public class SigleServerRepositoryImpl implements SigleServerRepository {
 	
 	@Override
 	public Server save(Server server) {
-		return servers.put(server.getName(), server);
+		servers.put(server.getName(), server);
+		return server;
 	}
 }

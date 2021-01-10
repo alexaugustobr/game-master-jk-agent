@@ -1,0 +1,144 @@
+<th:block xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		  xmlns:th="http://www.thymeleaf.org"
+		  layout:decorate="~{layout/jk-panel-layout}">
+
+	<div layout:fragment="content">
+		<div class="content">
+			<div class="page-inner">
+				<div class="page-header">
+					<h4 class="page-title">Overview</h4>
+					<ul class="breadcrumbs">
+						<li class="nav-home">
+							<a th:href="@{/}">
+								<i class="flaticon-home"></i>
+							</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/__${customerId}__/server}">Servers</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/__${customerId}__/server/__${serverId}__}">Overview</a>
+						</li>
+					</ul>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-3">
+										<div class="icon-preview"><i class="icon-user"></i></div>
+										<div class="icon-class"></div>
+										<p>Users</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-6">
+						<ul class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark">
+								Server Activities
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+								<table class="table table-striped">
+									<thead>
+									<tr>
+										<th scope="col">Date</th>
+										<th scope="col">Action</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>10:30 - 10/10/2020</td>
+										<td>Player Bob joined</td>
+									</tr>
+									<tr>
+										<td>10:30 - 10/10/2020</td>
+										<td>Server restarted</td>
+									</tr>
+									</tbody>
+								</table>
+							</li>
+						</ul>
+					</div>
+
+					<div class="col-md-6">
+						<ul class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark">
+								Map Rotation
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+								<table class="table table-striped">
+									<thead>
+									<tr>
+										<th scope="col">Date</th>
+										<th scope="col">Map</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>10:30 - 10/10/2020</td>
+										<td>MB2 DOFT</td>
+									</tr>
+									<tr>
+										<td>10:30 - 11/10/2020</td>
+										<td>MB2 Mustafar</td>
+									</tr>
+									</tbody>
+								</table>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-6">
+						<ul class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark">
+								Players
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+								<table class="table table-striped">
+									<thead>
+									<tr>
+										<th scope="col">Date</th>
+										<th scope="col">Map</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>10:30 - 10/10/2020</td>
+										<td>MB2 DOFT</td>
+									</tr>
+									<tr>
+										<td>10:30 - 11/10/2020</td>
+										<td>MB2 Mustafar</td>
+									</tr>
+									</tbody>
+								</table>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<th:block layout:fragment="javascript">
+
+		<script>
+
+		</script>
+
+	</th:block>
+
+</th:block>

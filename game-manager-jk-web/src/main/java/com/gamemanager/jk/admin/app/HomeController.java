@@ -19,7 +19,7 @@ public class HomeController {
 			return "redirect:/login";
 		}
 		
-		return "redirect:/admin";
+		return "redirect:/server";
 	}
 	
 }
