@@ -7,6 +7,9 @@ import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import com.gamemanager.jk.admin.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecuteResultHandler;
+import org.apache.commons.exec.DefaultExecutor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -22,29 +25,48 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.OffsetDateTime;
 
 @Controller
-@RequestMapping("/server/config")
+@RequestMapping("/server/rtv")
 @AllArgsConstructor
 @Slf4j
-public class ConfigUploadController {
+public class RtvController {
 	
 	private final ServerRepository serverRepository;
 	private final ConfigDataLoader configDataLoader;
+	private final DefaultExecutor executor = new DefaultExecutor();
 	
 	@GetMapping
 	public String configUpload(@AuthenticationPrincipal User user) {
-		return "config-update";
+		return "rtv";
 	}
 	
-	@GetMapping("/server.cfg")
-	public ResponseEntity<Resource> download(@AuthenticationPrincipal User user) throws FileNotFoundException {
+	@GetMapping("/restart")
+	public String restart(@AuthenticationPrincipal User user,  RedirectAttributes attributes) {
+		Server server = serverRepository.loadCurrent();
+		try {
+			executeCommand(server.getRtvRestartCommand());
+			String msg = "RTV is restarting!";
+			log.info(msg);
+			attributes.addFlashAttribute("message", MessageModel.success(msg));
+			return "redirect:/server/rtv";
+		} catch (Exception e) {
+			String msg = String.format("Error when trying to restart RTV %s:%s.", server.getIp(), server.getPort());
+			log.error(msg, e);
+			attributes.addFlashAttribute("message", MessageModel.danger(msg));
+			return "redirect:/server/rtv";
+		}
+	}
+	
+	@GetMapping("/rtvrtm.cfg")
+	public ResponseEntity<Resource> downloadRtv(@AuthenticationPrincipal User user) throws FileNotFoundException {
 		
-		Server server = serverRepository.findFirst();
-		File file = new File(server.getConfigPath());
+		Server server = serverRepository.loadCurrent();
+		File file = Paths.get(server.getRtvPath(), "rtvrtm.cfg").toFile();
 		InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 		
 		return ResponseEntity.ok()
@@ -53,27 +75,105 @@ public class ConfigUploadController {
 				.body(resource);
 	}
 	
-	@PostMapping
-	public String upload(@AuthenticationPrincipal User user,
+	@GetMapping("/maps.txt")
+	public ResponseEntity<Resource> downloadPrimaryMapList(@AuthenticationPrincipal User user) throws FileNotFoundException {
+		
+		Server server = serverRepository.loadCurrent();
+		File file = Paths.get(server.getRtvPath(), "maps.txt").toFile();
+		InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+		
+		return ResponseEntity.ok()
+				.contentLength(file.length())
+				.contentType(MediaType.APPLICATION_OCTET_STREAM)
+				.body(resource);
+	}
+	
+	@GetMapping("/secondary_maps.txt")
+	public ResponseEntity<Resource> downloadSecondaryMapList(@AuthenticationPrincipal User user) throws FileNotFoundException {
+		
+		Server server = serverRepository.loadCurrent();
+		File file = Paths.get(server.getRtvPath(), "secondary_maps.txt").toFile();
+		InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+		
+		return ResponseEntity.ok()
+				.contentLength(file.length())
+				.contentType(MediaType.APPLICATION_OCTET_STREAM)
+				.body(resource);
+	}
+	
+	@PostMapping("/rtvrtm")
+	public String uploadConfig(@AuthenticationPrincipal User user,
 						 RedirectAttributes attributes,
 						 MultipartFile file) {
-		Server server = serverRepository.findFirst();
+		Server server = serverRepository.loadCurrent();
 		try {
 			String bkpPath = String.format(server.getConfigPath() + ".bkp-%s", OffsetDateTime.now().toString());
 			log.info("Backup file created: "+ bkpPath);
-			Files.copy(Paths.get(server.getConfigPath()), Paths.get(bkpPath));
-			file.transferTo(server.getConfigFile());
-			configDataLoader.loadDataFromConfig();
-			String msg = "Restart the server to apply the config!";
+			Files.copy(Paths.get(server.getRtvPath(), "rtvrtm.cfg"), Paths.get(bkpPath));
+			file.transferTo(Paths.get(server.getRtvPath(), "rtvrtm.cfg").toFile());
+			//configDataLoader.load();
+			String msg = "Restart RTV to apply the config!";
 			log.info(msg);
 			attributes.addFlashAttribute("message", MessageModel.success(msg));
-			return "redirect:/server/config";
+			return "redirect:/server/rtv";
 		} catch (Exception e) {
-			String msg = String.format("Error when trying update the server config %s:%s.", server.getIp(), server.getPort());
+			String msg = String.format("Error when trying update the RTV config %s:%s.", server.getIp(), server.getPort());
 			log.error(msg, e);
 			attributes.addFlashAttribute("message", MessageModel.danger(msg));
-			return "redirect:/server/config";
+			return "redirect:/server/rtv";
 		}
+	}
+	
+	@PostMapping("/primary-maps")
+	public String uploadPrimaryMaps(@AuthenticationPrincipal User user,
+							   RedirectAttributes attributes,
+							   MultipartFile file) {
+		Server server = serverRepository.loadCurrent();
+		try {
+			String bkpPath = String.format(server.getConfigPath() + ".bkp-%s", OffsetDateTime.now().toString());
+			log.info("Backup file created: "+ bkpPath);
+			Files.copy(Paths.get(server.getRtvPath(), "maps.txt"), Paths.get(bkpPath));
+			file.transferTo(Paths.get(server.getRtvPath(), "maps.txt").toFile());
+			//configDataLoader.load();
+			String msg = "Restart RTV to apply the config!";
+			log.info(msg);
+			attributes.addFlashAttribute("message", MessageModel.success(msg));
+			return "redirect:/server/rtv";
+		} catch (Exception e) {
+			String msg = String.format("Error when trying update the primary map list %s:%s.", server.getIp(), server.getPort());
+			log.error(msg, e);
+			attributes.addFlashAttribute("message", MessageModel.danger(msg));
+			return "redirect:/server/rtv";
+		}
+	}
+	
+	@PostMapping("/secondary-maps")
+	public String uploadSecondaryMaps(@AuthenticationPrincipal User user,
+							   RedirectAttributes attributes,
+							   MultipartFile file) {
+		Server server = serverRepository.loadCurrent();
+		try {
+			String bkpPath = String.format(server.getConfigPath() + ".bkp-%s", OffsetDateTime.now().toString());
+			log.info("Backup file created: "+ bkpPath);
+			Files.copy(Paths.get(server.getRtvPath(), "secondary_maps.txt"), Paths.get(bkpPath));
+			file.transferTo(Paths.get(server.getRtvPath(), "secondary_maps.txt").toFile());
+			//configDataLoader.load();
+			String msg = "Restart RTV to apply the config!";
+			log.info(msg);
+			attributes.addFlashAttribute("message", MessageModel.success(msg));
+			return "redirect:/server/rtv";
+		} catch (Exception e) {
+			String msg = String.format("Error when trying update the secondary map list %s:%s.", server.getIp(), server.getPort());
+			log.error(msg, e);
+			attributes.addFlashAttribute("message", MessageModel.danger(msg));
+			return "redirect:/server/rtv";
+		}
+	}
+	
+	private void executeCommand(String cmd) throws IOException {
+		CommandLine cmdLine = CommandLine.parse(cmd);
+		DefaultExecuteResultHandler resultHandler = new DefaultExecuteResultHandler();
+		executor.execute(cmdLine, resultHandler);
 	}
 	
 }

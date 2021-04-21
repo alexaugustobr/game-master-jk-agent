@@ -22,16 +22,16 @@ public class ConfigDataLoader implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		loadDataFromConfig();
+		load();
 	}
 	
-	public void loadDataFromConfig() throws IOException {
+	public void load() throws IOException {
 		ConfigManager configManager = new ConfigManager(properties.getConfigPath());
 		
 		String rcon = configManager.getConfig(ConfigManager.ConfigKey.RCON_PASSWORD).orElse("rcon");
 		String server = configManager.getConfig(ConfigManager.ConfigKey.SV_HOSTNAME).orElse("MB2 Server");
 		
-		serverRepository.save(Server.builder()
+		serverRepository.store(Server.builder()
 				.ip(properties.getIp())
 				.port(properties.getPort())
 				.type(properties.getType())
@@ -44,6 +44,8 @@ public class ConfigDataLoader implements ApplicationRunner {
 				.poweroffCommand(properties.getPoweroffCommand())
 				.poweronCommand(properties.getPoweronCommand())
 				.updateCommand(properties.getUpdateCommand())
+				.rtvPath(properties.getRtvPath())
+				.rtvRestartCommand(properties.getRtvRestartCommand())
 				.name(server)
 				.rconPass(rcon)
 				.build());

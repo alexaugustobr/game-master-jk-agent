@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ServerRepository {
 	
-	Server findFirst();
+	Server loadCurrent();
 	
-	Server save(Server server);
+	Server store(Server server);
 	
 }

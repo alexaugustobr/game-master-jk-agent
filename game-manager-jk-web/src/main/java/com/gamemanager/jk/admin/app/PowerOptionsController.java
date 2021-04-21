@@ -36,7 +36,7 @@ public class PowerOptionsController {
 	public String poweron(@AuthenticationPrincipal User user,
 						  RedirectAttributes attributes) {
 		
-		Server server = serverRepository.findFirst();
+		Server server = serverRepository.loadCurrent();
 		
 		try {
 			executeCommand(server.getPoweronCommand());
@@ -58,7 +58,7 @@ public class PowerOptionsController {
 	public String poweroff(@AuthenticationPrincipal User user,
 						   RedirectAttributes attributes) {
 		
-		Server server = serverRepository.findFirst();
+		Server server = serverRepository.loadCurrent();
 		
 		try {
 			executeCommand(server.getPoweroffCommand());
@@ -80,7 +80,7 @@ public class PowerOptionsController {
 	public String restart(@AuthenticationPrincipal User user,
 						  RedirectAttributes attributes) {
 		
-		Server server = serverRepository.findFirst();
+		Server server = serverRepository.loadCurrent();
 		
 		try {
 			executeCommand(server.getRestartCommand());

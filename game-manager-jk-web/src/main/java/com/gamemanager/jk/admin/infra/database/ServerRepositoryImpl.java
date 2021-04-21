@@ -13,12 +13,12 @@ public class ServerRepositoryImpl implements ServerRepository {
 	private Map<String, Server> servers = new LinkedHashMap<>();
 	
 	@Override
-	public Server findFirst() {
+	public Server loadCurrent() {
 		return servers.get(servers.keySet().iterator().next());
 	}
 	
 	@Override
-	public Server save(Server server) {
+	public Server store(Server server) {
 		servers.put(server.getName(), server);
 		return server;
 	}

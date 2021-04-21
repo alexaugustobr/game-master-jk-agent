@@ -45,6 +45,10 @@ public class Server {
 	
 	private String jampFolderPath;
 	
+	private String rtvPath;
+	
+	private String rtvRestartCommand;
+	
 	public String getNameWithoutColors() {
 		return NameUtils.removeColorTags(name);
 	}

@@ -37,5 +37,9 @@ public class ServerProperties {
 	private String serverHomePath;
 	
 	private String jampFolderPath;
+	
+	private String rtvPath;
+	
+	private String rtvRestartCommand;
 
 }

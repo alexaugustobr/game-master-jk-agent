@@ -8,7 +8,6 @@ import com.gamemanager.jk.admin.app.model.ServerOverviewModel;
 import com.gamemanager.jk.admin.domain.server.Server;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import com.gamemanager.jk.admin.domain.user.User;
-import com.gamemanager.jk.admin.domain.user.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,17 +27,12 @@ import java.util.Map;
 public class OverviewController {
 	
 	private final ServerRepository serverRepository;
-	private final UserRepository userRepository;
 	
 	@GetMapping
 	public String jk(@AuthenticationPrincipal User user,
 					 Model model,
 					 RedirectAttributes attributes) {
-		
-		
-		Server server = serverRepository.findFirst();
-		
-		
+		Server server = serverRepository.loadCurrent();
 		
 		try {
 			JediAcademyServerConnector connector = new JediAcademyServerConnector(server.getIp(),

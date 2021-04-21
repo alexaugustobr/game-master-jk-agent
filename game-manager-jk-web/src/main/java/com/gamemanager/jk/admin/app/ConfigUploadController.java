@@ -43,7 +43,7 @@ public class ConfigUploadController {
 	@GetMapping("/server.cfg")
 	public ResponseEntity<Resource> download(@AuthenticationPrincipal User user) throws FileNotFoundException {
 		
-		Server server = serverRepository.findFirst();
+		Server server = serverRepository.loadCurrent();
 		File file = new File(server.getConfigPath());
 		InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 		
@@ -57,13 +57,13 @@ public class ConfigUploadController {
 	public String upload(@AuthenticationPrincipal User user,
 						 RedirectAttributes attributes,
 						 MultipartFile file) {
-		Server server = serverRepository.findFirst();
+		Server server = serverRepository.loadCurrent();
 		try {
 			String bkpPath = String.format(server.getConfigPath() + ".bkp-%s", OffsetDateTime.now().toString());
 			log.info("Backup file created: "+ bkpPath);
 			Files.copy(Paths.get(server.getConfigPath()), Paths.get(bkpPath));
 			file.transferTo(server.getConfigFile());
-			configDataLoader.loadDataFromConfig();
+			configDataLoader.load();
 			String msg = "Restart the server to apply the config!";
 			log.info(msg);
 			attributes.addFlashAttribute("message", MessageModel.success(msg));

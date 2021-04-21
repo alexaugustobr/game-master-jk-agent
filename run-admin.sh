@@ -1,0 +1,1 @@
+java -jar ./jk-admin-0.0.1-SNAPSHOT.jar --spring.config.location=file:///home/admin/git/private/game-master-stack/game-master-jk-agent/game-manager-jk-web/target/application.properties
