@@ -1,4 +1,4 @@
-package com.gamemanager.jk.admin.app.model;
+package com.gamemanager.jk.admin.api.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

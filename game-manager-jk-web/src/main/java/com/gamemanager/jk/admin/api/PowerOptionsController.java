@@ -1,6 +1,6 @@
-package com.gamemanager.jk.admin.app;
+package com.gamemanager.jk.admin.api;
 
-import com.gamemanager.jk.admin.app.model.MessageModel;
+import com.gamemanager.jk.admin.api.user.model.MessageModel;
 import com.gamemanager.jk.admin.domain.server.Server;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import com.gamemanager.jk.admin.domain.user.User;

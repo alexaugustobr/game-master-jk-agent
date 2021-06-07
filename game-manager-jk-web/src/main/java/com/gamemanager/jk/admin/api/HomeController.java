@@ -1,4 +1,4 @@
-package com.gamemanager.jk.admin.app;
+package com.gamemanager.jk.admin.api;
 
 import com.gamemanager.jk.admin.domain.user.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

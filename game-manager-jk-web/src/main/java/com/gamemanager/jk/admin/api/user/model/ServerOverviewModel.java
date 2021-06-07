@@ -1,4 +1,4 @@
-package com.gamemanager.jk.admin.app.model;
+package com.gamemanager.jk.admin.api.user.model;
 
 import com.gamemanager.ServerStatusType;
 import com.gamemanager.jk.admin.domain.server.NameUtils;

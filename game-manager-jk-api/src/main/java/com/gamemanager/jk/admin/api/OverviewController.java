@@ -1,13 +1,13 @@
-package com.gamemanager.jk.admin.app;
+package com.gamemanager.jk.admin.api;
 
 import com.gamemanager.JediAcademyServerConnector;
 import com.gamemanager.JediAcademyServerManager;
 import com.gamemanager.ServerStatusType;
-import com.gamemanager.jk.admin.app.model.MessageModel;
-import com.gamemanager.jk.admin.app.model.ServerOverviewModel;
+import com.gamemanager.jk.admin.api.core.MessageModel;
+import com.gamemanager.jk.admin.api.server.ServerOverviewModel;
 import com.gamemanager.jk.admin.domain.server.Server;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
-import com.gamemanager.jk.admin.domain.user.User;
+import com.gamemanager.jk.admin.domain.user.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -29,7 +29,7 @@ public class OverviewController {
 	private final ServerRepository serverRepository;
 	
 	@GetMapping
-	public String jk(@AuthenticationPrincipal User user,
+	public String jk(@AuthenticationPrincipal UserEntity user,
 					 Model model,
 					 RedirectAttributes attributes) {
 		Server server = serverRepository.loadCurrent();

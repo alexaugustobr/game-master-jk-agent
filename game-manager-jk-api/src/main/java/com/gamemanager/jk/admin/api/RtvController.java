@@ -1,10 +1,10 @@
-package com.gamemanager.jk.admin.app;
+package com.gamemanager.jk.admin.api;
 
-import com.gamemanager.jk.admin.app.model.MessageModel;
+import com.gamemanager.jk.admin.api.core.MessageModel;
 import com.gamemanager.jk.admin.config.ConfigDataLoader;
 import com.gamemanager.jk.admin.domain.server.Server;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
-import com.gamemanager.jk.admin.domain.user.User;
+import com.gamemanager.jk.admin.domain.user.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.exec.CommandLine;
@@ -41,12 +41,12 @@ public class RtvController {
 	private final DefaultExecutor executor = new DefaultExecutor();
 	
 	@GetMapping
-	public String configUpload(@AuthenticationPrincipal User user) {
+	public String configUpload(@AuthenticationPrincipal UserEntity user) {
 		return "rtv";
 	}
 	
 	@GetMapping("/restart")
-	public String restart(@AuthenticationPrincipal User user,  RedirectAttributes attributes) {
+	public String restart(@AuthenticationPrincipal UserEntity user,  RedirectAttributes attributes) {
 		Server server = serverRepository.loadCurrent();
 		try {
 			executeCommand(server.getRtvRestartCommand());
@@ -63,7 +63,7 @@ public class RtvController {
 	}
 	
 	@GetMapping("/rtvrtm.cfg")
-	public ResponseEntity<Resource> downloadRtv(@AuthenticationPrincipal User user) throws FileNotFoundException {
+	public ResponseEntity<Resource> downloadRtv(@AuthenticationPrincipal UserEntity user) throws FileNotFoundException {
 		
 		Server server = serverRepository.loadCurrent();
 		File file = Paths.get(server.getRtvPath(), "rtvrtm.cfg").toFile();
@@ -76,7 +76,7 @@ public class RtvController {
 	}
 	
 	@GetMapping("/maps.txt")
-	public ResponseEntity<Resource> downloadPrimaryMapList(@AuthenticationPrincipal User user) throws FileNotFoundException {
+	public ResponseEntity<Resource> downloadPrimaryMapList(@AuthenticationPrincipal UserEntity user) throws FileNotFoundException {
 		
 		Server server = serverRepository.loadCurrent();
 		File file = Paths.get(server.getRtvPath(), "maps.txt").toFile();
@@ -89,7 +89,7 @@ public class RtvController {
 	}
 	
 	@GetMapping("/secondary_maps.txt")
-	public ResponseEntity<Resource> downloadSecondaryMapList(@AuthenticationPrincipal User user) throws FileNotFoundException {
+	public ResponseEntity<Resource> downloadSecondaryMapList(@AuthenticationPrincipal UserEntity user) throws FileNotFoundException {
 		
 		Server server = serverRepository.loadCurrent();
 		File file = Paths.get(server.getRtvPath(), "secondary_maps.txt").toFile();
@@ -102,7 +102,7 @@ public class RtvController {
 	}
 	
 	@PostMapping("/rtvrtm")
-	public String uploadConfig(@AuthenticationPrincipal User user,
+	public String uploadConfig(@AuthenticationPrincipal UserEntity user,
 						 RedirectAttributes attributes,
 						 MultipartFile file) {
 		Server server = serverRepository.loadCurrent();
@@ -125,7 +125,7 @@ public class RtvController {
 	}
 	
 	@PostMapping("/primary-maps")
-	public String uploadPrimaryMaps(@AuthenticationPrincipal User user,
+	public String uploadPrimaryMaps(@AuthenticationPrincipal UserEntity user,
 							   RedirectAttributes attributes,
 							   MultipartFile file) {
 		Server server = serverRepository.loadCurrent();
@@ -148,7 +148,7 @@ public class RtvController {
 	}
 	
 	@PostMapping("/secondary-maps")
-	public String uploadSecondaryMaps(@AuthenticationPrincipal User user,
+	public String uploadSecondaryMaps(@AuthenticationPrincipal UserEntity user,
 							   RedirectAttributes attributes,
 							   MultipartFile file) {
 		Server server = serverRepository.loadCurrent();

@@ -27,7 +27,40 @@
 			<div class="container-fluid">
 				<div class="collapse" id="search-nav">
 				</div>
-				<th:block th:replace="components/nav-options" />
+				<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+					<li class="nav-item dropdown hidden-caret">
+						<a class="dropdown-toggle profile-pic" data-toggle="dropdown" th:href="@{/}" aria-expanded="false">
+							<div class="avatar-sm">
+								<img th:src="@{/img/profile1.png}" alt="..." class="avatar-img rounded-circle">
+							</div>
+						</a>
+						<ul class="dropdown-menu dropdown-user animated fadeIn">
+							<div class="dropdown-user-scroll scrollbar-outer">
+								<li>
+									<div class="user-box">
+			<!--							<div class="avatar-lg">-->
+			<!--								<img th:src="@{/img/profile1.png}" alt="image profile" class="avatar-img rounded"></div>-->
+										<div class="u-text">
+											<h4 th:text="|User: ${#authentication.principal}|">Hizrian</h4>
+			<!--								<p  sec:authentication="principal.email" class="text-muted">hello@example.com</p>-->
+											<!--												<a th:href="@{/__${customerId}__/my-profile}" class="btn btn-xs btn-secondary btn-sm">View Profile</a>-->
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="dropdown-divider"></div>
+			<!--						<a  class="dropdown-item" th:href="@{/user}">My Profile</a>-->
+			<!--						<div class="dropdown-divider"></div>-->
+			<!--						<a  class="dropdown-item" th:href="@{/change-password}">Change Password</a>-->
+			<!--						<div class="dropdown-divider"></div>-->
+									<!--										<a class="dropdown-item" th:href="@{/}">Account Setting</a>-->
+									<!--										<div class="dropdown-divider"></div>-->
+									<a class="dropdown-item" th:href="@{/logout}">Logout</a>
+								</li>
+							</div>
+						</ul>
+					</li>
+				</ul>
 			</div>
 		</nav>
 		<!-- End Navbar -->
