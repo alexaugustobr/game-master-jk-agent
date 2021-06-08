@@ -5,10 +5,11 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.testcontainers.shaded.org.apache.commons.lang.StringUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.AbstractMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -22,14 +23,14 @@ import java.util.regex.Pattern;
 @Getter
 public class ConfigManager {
 	
-	private final File file;
+	private final Path file;
 	
 	public ConfigManager(String filePath) {
-		this.file = new File(filePath);
+		this.file = Paths.get(filePath);
 	}
 	
 	public List<String> readAllLines() throws IOException {
-		return Files.readAllLines(this.file.toPath(), (Charset.defaultCharset()));
+		return Files.readAllLines(this.file, Charset.defaultCharset());
 	}
 	
 	public Optional<String> getConfig(ConfigKey configKey) throws IOException {

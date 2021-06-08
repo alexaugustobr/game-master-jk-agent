@@ -6,7 +6,7 @@ import lombok.Data;
 public class UserModel {
 	
 	private int slot;
-	private String name;
+	private String userName;
 	private String type;
 	private int permissions;
 	private String password;
