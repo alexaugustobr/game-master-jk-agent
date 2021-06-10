@@ -52,7 +52,7 @@ public class ConfigDataLoader implements ApplicationRunner {
 		
 		userRepository.save(UserEntity.builder()
 				.slot(0)
-				.type(UserEntity.Role.RCON)
+				.type(UserEntity.Type.RCON)
 				.userName("rcon")
 				.password(rcon)
 				.enabled(true)
@@ -60,7 +60,7 @@ public class ConfigDataLoader implements ApplicationRunner {
 
 		userRepository.save(UserEntity.builder()
 				.slot(1)
-				.type(UserEntity.Role.SMOD)
+				.type(UserEntity.Type.SMOD)
 				.userName("smod1")
 				.password(rcon)
 				.enabled(true)

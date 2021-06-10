@@ -23,7 +23,7 @@ public class UserEntity implements UserDetails {
 	
 	private String password;
 	
-	private Role type;
+	private Type type;
 	
 	private boolean enabled = true;
 	
@@ -39,7 +39,12 @@ public class UserEntity implements UserDetails {
 	public String getUsername() {
 		return userName;
 	}
-	
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return enabled;
@@ -60,7 +65,7 @@ public class UserEntity implements UserDetails {
 		return enabled;
 	}
 	
-	public enum Role {
+	public enum Type {
 		RCON,
 		SMOD,
 		SYSTEM,

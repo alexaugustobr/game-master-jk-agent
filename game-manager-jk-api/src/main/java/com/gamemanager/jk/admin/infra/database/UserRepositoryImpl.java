@@ -22,6 +22,13 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
+	public Optional<UserEntity> findByUserNameAndType(String userName, UserEntity.Type type) {
+		return users.values().stream().filter(user -> 
+			Objects.equals(userName, user.getUsername()) && Objects.equals(type, user.getType())
+		).findAny();
+	}
+
+	@Override
 	public Optional<UserEntity> findBySlot(Integer slot) {
 		return Optional.ofNullable(users.get(slot));
 	}

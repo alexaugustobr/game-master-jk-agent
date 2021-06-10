@@ -9,7 +9,6 @@ public class UserModel {
 	private String userName;
 	private String type;
 	private int permissions;
-	private String password;
 	private boolean enabled;
 	
 }

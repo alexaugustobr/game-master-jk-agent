@@ -10,6 +10,8 @@ public interface UserRepository {
 	
 	Optional<UserEntity> findByUserName(String userName);
 
+	Optional<UserEntity> findByUserNameAndType(String userName, UserEntity.Type type);
+
 	Optional<UserEntity> findBySlot(Integer slot);
 	
 	UserEntity save(UserEntity user);
