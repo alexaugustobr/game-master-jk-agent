@@ -19,7 +19,7 @@ import java.util.Collections;
 @Builder
 public class User implements UserDetails {
 	
-	private String userName;
+	private String username;
 	
 	private String password;
 	
@@ -35,7 +35,7 @@ public class User implements UserDetails {
 	
 	@Override
 	public String getUsername() {
-		return userName;
+		return username;
 	}
 	
 	@Override
@@ -67,6 +67,6 @@ public class User implements UserDetails {
 	
 	@Override
 	public String toString() {
-		return userName;
+		return username;
 	}
 }

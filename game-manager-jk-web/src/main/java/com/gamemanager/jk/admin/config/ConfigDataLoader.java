@@ -52,7 +52,7 @@ public class ConfigDataLoader implements ApplicationRunner {
 		
 		userRepository.save(User.builder()
 				.role(User.Role.SYSTEM)
-				.userName("rcon")
+				.username("rcon")
 				.password(rcon)
 				.enabled(true)
 				.build());

@@ -37,6 +37,7 @@ public class ConfigDataLoader implements ApplicationRunner {
 				.type(properties.getType())
 				.logPath(properties.getLogPath())
 				.openJKLogPath(properties.getOpenJKLogPath())
+				.zipLogPath(properties.getZipLogPath())
 				.configPath(properties.getConfigPath())
 				.serverHomePath(properties.getServerHomePath())
 				.jampFolderPath(properties.getJampFolderPath())

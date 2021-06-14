@@ -45,6 +45,8 @@ public class Server {
 	
 	private String jampFolderPath;
 	
+	private String zipLogPath;
+	
 	private String rtvPath;
 	
 	private String rtvRestartCommand;

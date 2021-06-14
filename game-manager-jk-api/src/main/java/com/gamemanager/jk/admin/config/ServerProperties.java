@@ -21,6 +21,8 @@ public class ServerProperties {
 	private String logPath;
 	
 	private String openJKLogPath;
+
+	private String zipLogPath;
 	
 	private String restartCommand;
 	
