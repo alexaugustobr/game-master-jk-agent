@@ -9,7 +9,7 @@ import java.time.OffsetDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GameLogModel {
-	private String fileName;
-	private OffsetDateTime date;
+public class GameLogFileModel {
+	private String name;
+	private OffsetDateTime dateTime;
 }
