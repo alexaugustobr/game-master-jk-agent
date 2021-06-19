@@ -1,6 +1,5 @@
 package com.gamemanager.jk.admin.api;
 
-import com.gamemanager.jk.admin.api.core.MessageModel;
 import com.gamemanager.jk.admin.config.ConfigDataLoader;
 import com.gamemanager.jk.admin.domain.server.Server;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
@@ -14,10 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,20 +25,15 @@ import java.nio.file.Paths;
 import java.time.OffsetDateTime;
 
 @Controller
-@RequestMapping("/server/config")
+@RequestMapping("/api/v1/server-config")
 @AllArgsConstructor
 @Slf4j
-public class ConfigUploadController {
+public class ServerConfigController {
 	
 	private final ServerRepository serverRepository;
 	private final ConfigDataLoader configDataLoader;
 	
-	@GetMapping
-	public String configUpload(@AuthenticationPrincipal UserEntity user) {
-		return "config-update";
-	}
-	
-	@GetMapping("/server.cfg")
+	@GetMapping("/download")
 	public ResponseEntity<Resource> download(@AuthenticationPrincipal UserEntity user) throws FileNotFoundException {
 		
 		Server server = serverRepository.loadCurrent();
@@ -53,10 +46,8 @@ public class ConfigUploadController {
 				.body(resource);
 	}
 	
-	@PostMapping
-	public String upload(@AuthenticationPrincipal UserEntity user,
-						 RedirectAttributes attributes,
-						 MultipartFile file) {
+	@PutMapping("/upload")
+	public ResponseEntity<Void> upload(MultipartFile file) {
 		Server server = serverRepository.loadCurrent();
 		try {
 			String bkpPath = String.format(server.getConfigPath() + ".bkp-%s", OffsetDateTime.now().toString());
@@ -66,13 +57,11 @@ public class ConfigUploadController {
 			configDataLoader.load();
 			String msg = "Restart the server to apply the config!";
 			log.info(msg);
-			attributes.addFlashAttribute("message", MessageModel.success(msg));
-			return "redirect:/server/config";
+			return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			String msg = String.format("Error when trying update the server config %s:%s.", server.getIp(), server.getPort());
 			log.error(msg, e);
-			attributes.addFlashAttribute("message", MessageModel.danger(msg));
-			return "redirect:/server/config";
+			return ResponseEntity.status(500).build();
 		}
 	}
 	
