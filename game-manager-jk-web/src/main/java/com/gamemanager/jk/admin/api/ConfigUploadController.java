@@ -1,6 +1,5 @@
 package com.gamemanager.jk.admin.api;
 
-import com.gamemanager.jk.admin.api.user.model.MessageModel;
 import com.gamemanager.jk.admin.config.ConfigDataLoader;
 import com.gamemanager.jk.admin.domain.server.Server;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,7 +39,7 @@ public class ConfigUploadController {
 	}
 	
 	@GetMapping("/server.cfg")
-	public ResponseEntity<Resource> download(@AuthenticationPrincipal User user) throws FileNotFoundException {
+	public ResponseEntity<Resource> download() throws FileNotFoundException {
 		
 		Server server = serverRepository.loadCurrent();
 		File file = new File(server.getConfigPath());
@@ -54,9 +52,7 @@ public class ConfigUploadController {
 	}
 	
 	@PostMapping
-	public String upload(@AuthenticationPrincipal User user,
-						 RedirectAttributes attributes,
-						 MultipartFile file) {
+	public String upload(MultipartFile file) {
 		Server server = serverRepository.loadCurrent();
 		try {
 			String bkpPath = String.format(server.getConfigPath() + ".bkp-%s", OffsetDateTime.now().toString());
@@ -66,12 +62,10 @@ public class ConfigUploadController {
 			configDataLoader.load();
 			String msg = "Restart the server to apply the config!";
 			log.info(msg);
-			attributes.addFlashAttribute("message", MessageModel.success(msg));
 			return "redirect:/server/config";
 		} catch (Exception e) {
 			String msg = String.format("Error when trying update the server config %s:%s.", server.getIp(), server.getPort());
 			log.error(msg, e);
-			attributes.addFlashAttribute("message", MessageModel.danger(msg));
 			return "redirect:/server/config";
 		}
 	}
