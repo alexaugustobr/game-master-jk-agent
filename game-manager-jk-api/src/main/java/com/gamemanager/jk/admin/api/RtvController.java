@@ -1,7 +1,6 @@
 package com.gamemanager.jk.admin.api;
 
 import com.gamemanager.jk.admin.api.core.MessageModel;
-import com.gamemanager.jk.admin.config.ConfigDataLoader;
 import com.gamemanager.jk.admin.domain.server.Server;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import com.gamemanager.jk.admin.domain.user.UserEntity;
@@ -15,10 +14,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,14 +29,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.OffsetDateTime;
 
-@Controller
-@RequestMapping("/server/rtv")
+@RestController
+@RequestMapping("/api/plugins/rtv")
 @AllArgsConstructor
 @Slf4j
 public class RtvController {
 	
 	private final ServerRepository serverRepository;
-	private final ConfigDataLoader configDataLoader;
 	private final DefaultExecutor executor = new DefaultExecutor();
 	
 	@GetMapping

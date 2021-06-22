@@ -6,7 +6,6 @@ import lombok.Data;
 public class UserUpdateModel {
 	
 	private int permissions;
-	private boolean enabled;
 	private String password;
 	
 }

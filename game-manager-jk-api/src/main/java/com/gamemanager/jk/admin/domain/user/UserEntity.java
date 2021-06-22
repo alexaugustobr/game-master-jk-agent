@@ -29,6 +29,8 @@ public class UserEntity implements UserDetails {
 	
 	private Integer slot;
 	
+	private Integer permissions;
+	
 	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
 		String roleName = String.format("ROLE_%s", type.name());
