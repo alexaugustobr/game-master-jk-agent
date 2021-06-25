@@ -1,5 +1,6 @@
 package com.gamemanager.jk.admin.api.server;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gamemanager.ServerStatusType;
 import com.gamemanager.jk.admin.domain.server.NameUtils;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServerOverviewModel {
+public class GameServerModel {
 	
 	private String serverName;
 	private String playersCount;
@@ -29,14 +30,17 @@ public class ServerOverviewModel {
 	private int port;
 	private List<String> players = new ArrayList<>();
 	
-	public String getServerNameWithoutColors() {
+	@JsonProperty
+	public String getNameWithoutColors() {
 		return NameUtils.removeColorTags(serverName);
 	}
-	
+
+	@JsonProperty
 	public List<String> getPlayersWithoutColors() {
 		return players.stream().map(NameUtils::removeColorTags).collect(Collectors.toList());
 	}
-	
+
+	@JsonProperty
 	public String getAddress() {
 		return ip + ":" + port;
 	}
