@@ -46,7 +46,7 @@ public class PowerOptionsController {
 			attributes.addFlashAttribute("message", MessageModel.success(msg));
 			
 		} catch (Exception e) {
-			String msg = "Error occured when sending the power on command to the server!";
+			String msg = "Error occurred when sending the power on command to the server!";
 			log.error(msg);
 			attributes.addFlashAttribute("message", MessageModel.danger(msg));
 		}
@@ -68,7 +68,7 @@ public class PowerOptionsController {
 			attributes.addFlashAttribute("message", MessageModel.success(msg));
 			
 		} catch (Exception e) {
-			String msg = "Error occured when sending the power on command to the server!";
+			String msg = "Error occurred when sending the power on command to the server!";
 			log.error(msg);
 			attributes.addFlashAttribute("message", MessageModel.danger(msg));
 		}
@@ -90,7 +90,7 @@ public class PowerOptionsController {
 			attributes.addFlashAttribute("message", MessageModel.success(msg));
 			
 		} catch (Exception e) {
-			String msg = "Error occured when sending the power on command to the server!";
+			String msg = "Error occurred when sending the power on command to the server!";
 			log.error(msg);
 			attributes.addFlashAttribute("message", MessageModel.danger(msg));
 		}
