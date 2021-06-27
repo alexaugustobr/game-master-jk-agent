@@ -2,7 +2,7 @@
 FROM maven:3-openjdk-11 as target
 WORKDIR /build
 COPY ./ .
-RUN mvn install package
+RUN mvn install package -DskipTests
 
 # Run
 FROM openjdk:11-jre
