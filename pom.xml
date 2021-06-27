@@ -26,7 +26,6 @@
 
   <modules>
     <module>game-manager-jk-api</module>
-    <module>game-manager-jk-web</module>
     <module>game-manager-jk-cli</module>
     <module>game-manager-jk-server-manager</module>
     <module>game-manager-jk-server-connector</module>
