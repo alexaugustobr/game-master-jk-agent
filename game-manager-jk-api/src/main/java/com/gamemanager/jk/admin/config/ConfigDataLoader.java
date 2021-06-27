@@ -26,7 +26,8 @@ public class ConfigDataLoader implements ApplicationRunner {
 	}
 	
 	public void load() throws IOException {
-		ConfigManager configManager = new ConfigManager(properties.getConfigPath());
+		String configPath = properties.getConfigPath();
+		ConfigManager configManager = new ConfigManager(configPath);
 		
 		String rcon = configManager.getConfig(ConfigManager.ConfigKey.RCON_PASSWORD).orElse("rcon");
 		String server = configManager.getConfig(ConfigManager.ConfigKey.SV_HOSTNAME).orElse("MB2 Server");
@@ -38,7 +39,7 @@ public class ConfigDataLoader implements ApplicationRunner {
 				.logPath(properties.getLogPath())
 				.openJKLogPath(properties.getOpenJKLogPath())
 				.zipLogPath(properties.getZipLogPath())
-				.configPath(properties.getConfigPath())
+				.configPath(configPath)
 				.serverHomePath(properties.getServerHomePath())
 				.jampPath(properties.getJampPath())
 				.mb2Path(properties.getMb2Path())

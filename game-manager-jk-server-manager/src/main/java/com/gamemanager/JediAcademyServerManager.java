@@ -16,11 +16,14 @@ import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @AllArgsConstructor
 @Slf4j
@@ -53,7 +56,7 @@ public class JediAcademyServerManager {
 			Path mb2Path = Paths.get(config.getMb2Path());
 
 			File[] gamePk3Files = mb2Path.toFile().listFiles((dir, name) -> name.toLowerCase().endsWith(".pk3"));
-			List<GameMap> gameMaps = new ArrayList<>();
+			Set<GameMap> gameMapSet = new HashSet<>();
 
 			if (gamePk3Files != null) {
 				for (File pk3File : gamePk3Files) {
@@ -67,19 +70,20 @@ public class JediAcademyServerManager {
 						while (entries.hasMoreElements()) {
 							ZipArchiveEntry zipArchiveEntry = entries.nextElement();
 							if (zipArchiveEntry.getName().contains(".bsp")) {
-								gameMaps.add(new GameMap(
-										pk3File.getName(),
+								gameMapSet.add(new GameMap(pk3File.getName(),
 										OffsetDateTime.ofInstant(creationTime.toInstant(), ZoneId.systemDefault())
 								));
 							}
 						}
+						zipFile.close();
 						
 					} catch (IOException e) {
 						log.error("Exception occurred while trying to read the pk3 file", e);
 					}
 				}
 			}
-			
+			List<GameMap> gameMaps = new ArrayList<>(gameMapSet);
+			gameMaps.sort(Comparator.comparing(GameMap::getCreatedAt));
 			return gameMaps;
 		}
 
