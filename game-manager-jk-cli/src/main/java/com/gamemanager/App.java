@@ -9,18 +9,19 @@ import java.util.Map;
 public class App {
 	
 	public static void main( String[] args ) throws Exception {
-		JediAcademyServerManager manager = new JediAcademyServerManager(new JediAcademyServerConnector("116.203.157.129", 29070));
+		JediAcademyServerConnector jediAcademyServerConnector = new JediAcademyServerConnector("116.203.157.129", 29070);
+		JediAcademyServerManager manager = new JediAcademyServerManager();
 		
-		JediAcademyServerManager.AnonymousCommandSender anonymousCommandSender = manager.asAnonymous();
+		JediAcademyServerManager.AnonymousCommandSender anonymousCommandSender = manager.asAnonymous(jediAcademyServerConnector);
 		
-		Map<ServerStatusType, String> detailedStatus = manager.asAnonymous().getDetailedInfo();
+		Map<ServerStatusType, String> detailedStatus = manager.asAnonymous(jediAcademyServerConnector).getDetailedInfo();
 
 		List<String> pLayers = anonymousCommandSender.getPLayers();
 
-		manager.asRoot("pass")
+		manager.asRoot(jediAcademyServerConnector, "pass")
 				.resetServer();
 
-		manager.asSmod("pass")
+		manager.asSmod(jediAcademyServerConnector, "pass")
 				.changeMap("mapName");
 		
 		log.info("lo");
