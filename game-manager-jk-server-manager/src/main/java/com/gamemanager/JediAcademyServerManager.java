@@ -2,28 +2,104 @@ package com.gamemanager;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
+import org.apache.commons.compress.archivers.zip.ZipFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @AllArgsConstructor
+@Slf4j
 public class JediAcademyServerManager {
 
-	private final JediAcademyServerConnector connector;
-	
-	public AnonymousCommandSender asAnonymous() {
+	public AnonymousCommandSender asAnonymous(JediAcademyServerConnector connector) {
 		return new AnonymousCommandSender(connector);
 	}
 	
-	public SmodCommandSender asSmod(String pass) {
+	public SmodCommandSender asSmod(JediAcademyServerConnector connector, String pass) {
 		return new SmodCommandSender(connector, pass);
 	}
 	
-	public RootCommandSender asRoot(String pass) {
+	public RootCommandSender asRoot(JediAcademyServerConnector connector, String pass) {
 		return new RootCommandSender(connector, pass);
 	}
-	
+
+	public LocalCommandSender runLocally(GameServerConfig config) {
+		return new LocalCommandSender(config);
+	}
+
+	@AllArgsConstructor
+	@Getter
+	public static class LocalCommandSender {
+		
+		private final GameServerConfig config;
+
+		public List<GameMap> getGameMaps() {
+
+			Path mb2Path = Paths.get(config.getMb2Path());
+
+			File[] gamePk3Files = mb2Path.toFile().listFiles((dir, name) -> name.toLowerCase().endsWith(".pk3"));
+			List<GameMap> gameMaps = new ArrayList<>();
+
+			if (gamePk3Files != null) {
+				for (File pk3File : gamePk3Files) {
+					try {
+						FileTime creationTime = (FileTime) Files.getAttribute(pk3File.toPath(), "creationTime");
+
+						ZipFile zipFile = new ZipFile(pk3File);
+
+						Enumeration<ZipArchiveEntry> entries = zipFile.getEntries();
+
+						while (entries.hasMoreElements()) {
+							ZipArchiveEntry zipArchiveEntry = entries.nextElement();
+							if (zipArchiveEntry.getName().contains(".bsp")) {
+								gameMaps.add(new GameMap(
+										pk3File.getName(),
+										OffsetDateTime.ofInstant(creationTime.toInstant(), ZoneId.systemDefault())
+								));
+							}
+						}
+						
+					} catch (IOException e) {
+						log.error("Exception occurred while trying to read the pk3 file", e);
+					}
+				}
+			}
+			
+			return gameMaps;
+		}
+
+		public void deleteMapByName(String fileName) {
+			Path mb2Path = Paths.get(config.getMb2Path());
+
+			Optional<File> gamePk3File = Arrays.stream(mb2Path.toFile()
+					.listFiles((dir, name) -> name.toLowerCase().endsWith(".pk3")))
+					.filter(o -> o.getName().equalsIgnoreCase(fileName)).findAny();
+
+			File file = gamePk3File.orElseThrow(RuntimeException::new);
+			try {
+				Files.deleteIfExists(file.toPath());
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+
+		}
+	}
+
 	@AllArgsConstructor
 	@Getter
 	public static class AnonymousCommandSender {

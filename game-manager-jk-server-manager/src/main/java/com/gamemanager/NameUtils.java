@@ -1,4 +1,4 @@
-package com.gamemanager.jk.admin.domain.server;
+package com.gamemanager;
 
 public class NameUtils {
 	public static String removeColorTags(String name) {

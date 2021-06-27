@@ -1,6 +1,6 @@
 package com.gamemanager.jk.admin.api.log;
 
-import com.gamemanager.jk.admin.domain.server.Server;
+import com.gamemanager.GameServerConfig;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
@@ -34,7 +34,7 @@ public class LogController {
 	
 	@GetMapping("/games")
 	public List<GameLogFileModel> listGameLogs() {
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		Path logPath = Paths.get(server.getLogPath());
 		File logFolder = new File(server.getZipLogPath());
 
@@ -71,7 +71,7 @@ public class LogController {
 
 	@GetMapping("/games/{fileName}")
 	public ResponseEntity<Resource> downloadGameLog(@PathVariable String fileName) throws IOException {
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		File file = Paths.get(server.getZipLogPath(), fileName).toFile();
 		InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 		String mimeType= URLConnection.guessContentTypeFromStream(new FileInputStream(file));

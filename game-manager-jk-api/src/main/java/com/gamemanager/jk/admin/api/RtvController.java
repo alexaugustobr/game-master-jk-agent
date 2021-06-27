@@ -1,7 +1,7 @@
 package com.gamemanager.jk.admin.api;
 
 import com.gamemanager.jk.admin.api.core.MessageModel;
-import com.gamemanager.jk.admin.domain.server.Server;
+import com.gamemanager.GameServerConfig;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import com.gamemanager.jk.admin.domain.user.UserEntity;
 import lombok.AllArgsConstructor;
@@ -45,7 +45,7 @@ public class RtvController {
 	
 	@GetMapping("/restart")
 	public String restart(@AuthenticationPrincipal UserEntity user,  RedirectAttributes attributes) {
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		try {
 			executeCommand(server.getRtvRestartCommand());
 			String msg = "RTV is restarting!";
@@ -63,7 +63,7 @@ public class RtvController {
 	@GetMapping("/rtvrtm.cfg")
 	public ResponseEntity<Resource> downloadRtv(@AuthenticationPrincipal UserEntity user) throws FileNotFoundException {
 		
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		File file = Paths.get(server.getRtvPath(), "rtvrtm.cfg").toFile();
 		InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 		
@@ -76,7 +76,7 @@ public class RtvController {
 	@GetMapping("/maps.txt")
 	public ResponseEntity<Resource> downloadPrimaryMapList(@AuthenticationPrincipal UserEntity user) throws FileNotFoundException {
 		
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		File file = Paths.get(server.getRtvPath(), "maps.txt").toFile();
 		InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 		
@@ -89,7 +89,7 @@ public class RtvController {
 	@GetMapping("/secondary_maps.txt")
 	public ResponseEntity<Resource> downloadSecondaryMapList(@AuthenticationPrincipal UserEntity user) throws FileNotFoundException {
 		
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		File file = Paths.get(server.getRtvPath(), "secondary_maps.txt").toFile();
 		InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 		
@@ -103,7 +103,7 @@ public class RtvController {
 	public String uploadConfig(@AuthenticationPrincipal UserEntity user,
 						 RedirectAttributes attributes,
 						 MultipartFile file) {
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		try {
 			String bkpPath = String.format(server.getConfigPath() + ".bkp-%s", OffsetDateTime.now().toString());
 			log.info("Backup file created: "+ bkpPath);
@@ -126,7 +126,7 @@ public class RtvController {
 	public String uploadPrimaryMaps(@AuthenticationPrincipal UserEntity user,
 							   RedirectAttributes attributes,
 							   MultipartFile file) {
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		try {
 			String bkpPath = String.format(server.getConfigPath() + ".bkp-%s", OffsetDateTime.now().toString());
 			log.info("Backup file created: "+ bkpPath);
@@ -149,7 +149,7 @@ public class RtvController {
 	public String uploadSecondaryMaps(@AuthenticationPrincipal UserEntity user,
 							   RedirectAttributes attributes,
 							   MultipartFile file) {
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		try {
 			String bkpPath = String.format(server.getConfigPath() + ".bkp-%s", OffsetDateTime.now().toString());
 			log.info("Backup file created: "+ bkpPath);

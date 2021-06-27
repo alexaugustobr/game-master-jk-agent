@@ -2,7 +2,7 @@ package com.gamemanager.jk.admin.api.server;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gamemanager.ServerStatusType;
-import com.gamemanager.jk.admin.domain.server.NameUtils;
+import com.gamemanager.NameUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

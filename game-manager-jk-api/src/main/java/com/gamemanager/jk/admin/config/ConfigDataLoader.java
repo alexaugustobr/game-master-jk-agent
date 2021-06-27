@@ -1,7 +1,7 @@
 package com.gamemanager.jk.admin.config;
 
 import com.gamemanager.ConfigManager;
-import com.gamemanager.jk.admin.domain.server.Server;
+import com.gamemanager.GameServerConfig;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import com.gamemanager.jk.admin.domain.user.UserEntity;
 import com.gamemanager.jk.admin.domain.user.UserRepository;
@@ -31,7 +31,7 @@ public class ConfigDataLoader implements ApplicationRunner {
 		String rcon = configManager.getConfig(ConfigManager.ConfigKey.RCON_PASSWORD).orElse("rcon");
 		String server = configManager.getConfig(ConfigManager.ConfigKey.SV_HOSTNAME).orElse("MB2 Server");
 		
-		serverRepository.store(Server.builder()
+		serverRepository.store(GameServerConfig.builder()
 				.ip(properties.getIp())
 				.port(properties.getPort())
 				.type(properties.getType())
@@ -40,7 +40,8 @@ public class ConfigDataLoader implements ApplicationRunner {
 				.zipLogPath(properties.getZipLogPath())
 				.configPath(properties.getConfigPath())
 				.serverHomePath(properties.getServerHomePath())
-				.jampFolderPath(properties.getJampFolderPath())
+				.jampPath(properties.getJampPath())
+				.mb2Path(properties.getMb2Path())
 				.restartCommand(properties.getRestartCommand())
 				.poweroffCommand(properties.getPoweroffCommand())
 				.poweronCommand(properties.getPoweronCommand())
@@ -59,12 +60,12 @@ public class ConfigDataLoader implements ApplicationRunner {
 				.enabled(true)
 				.build());
 
-		userRepository.save(UserEntity.builder()
-				.slot(1)
-				.type(UserEntity.Type.SMOD)
-				.userName("smod1")
-				.password(rcon)
-				.enabled(true)
-				.build());
+//		userRepository.save(UserEntity.builder()
+//				.slot(1)
+//				.type(UserEntity.Type.SMOD)
+//				.userName("smod1")
+//				.password(rcon)
+//				.enabled(true)
+//				.build());
 	}
 }

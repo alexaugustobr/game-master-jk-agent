@@ -1,6 +1,6 @@
 package com.gamemanager.jk.admin.api;
 
-import com.gamemanager.jk.admin.domain.server.Server;
+import com.gamemanager.GameServerConfig;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class PowerOptionsController {
 	@PutMapping("/poweron")
 	public void poweron() {
 		
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		
 		try {
 			executeCommand(server.getPoweronCommand());
@@ -44,7 +44,7 @@ public class PowerOptionsController {
 	@PutMapping("/poweroff")
 	public void poweroff() {
 		
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		
 		try {
 			executeCommand(server.getPoweroffCommand());
@@ -63,7 +63,7 @@ public class PowerOptionsController {
 	@PutMapping("/restart")
 	public void restart() {
 		
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		
 		try {
 			executeCommand(server.getRestartCommand());

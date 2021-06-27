@@ -1,4 +1,4 @@
-package com.gamemanager.jk.admin.api;
+package com.gamemanager;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.time.OffsetDateTime;
 
 @Data
 @AllArgsConstructor
-public class GameMapModel {
+public class GameMap {
 	
 	private String name;
 	private OffsetDateTime createdAt;

@@ -40,9 +40,9 @@ public class JediAcademyServerManagerIntegrationIT {
 				"127.0.0.1", 29071
 		);
 		
-		JediAcademyServerManager manager = new JediAcademyServerManager(connector);
+		JediAcademyServerManager manager = new JediAcademyServerManager();
 		
-		Assert.assertEquals(0, manager.asAnonymous().getPlayerCount());
+		Assert.assertEquals(0, manager.asAnonymous(connector).getPlayerCount());
 		
 	}
 	

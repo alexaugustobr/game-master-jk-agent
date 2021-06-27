@@ -1,6 +1,6 @@
 package com.gamemanager.jk.admin.infra.database;
 
-import com.gamemanager.jk.admin.domain.server.Server;
+import com.gamemanager.GameServerConfig;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import org.springframework.stereotype.Component;
 
@@ -10,15 +10,15 @@ import java.util.Map;
 @Component
 public class ServerRepositoryImpl implements ServerRepository {
 	
-	private Map<String, Server> servers = new LinkedHashMap<>();
+	private Map<String, GameServerConfig> servers = new LinkedHashMap<>();
 	
 	@Override
-	public Server loadCurrent() {
+	public GameServerConfig loadCurrent() {
 		return servers.get(servers.keySet().iterator().next());
 	}
 	
 	@Override
-	public Server store(Server server) {
+	public GameServerConfig store(GameServerConfig server) {
 		servers.put(server.getName(), server);
 		return server;
 	}

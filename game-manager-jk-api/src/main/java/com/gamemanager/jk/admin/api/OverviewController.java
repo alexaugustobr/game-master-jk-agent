@@ -4,7 +4,7 @@ import com.gamemanager.JediAcademyServerConnector;
 import com.gamemanager.JediAcademyServerManager;
 import com.gamemanager.ServerStatusType;
 import com.gamemanager.jk.admin.api.server.GameServerModel;
-import com.gamemanager.jk.admin.domain.server.Server;
+import com.gamemanager.GameServerConfig;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,16 +25,14 @@ public class OverviewController {
 	
 	@GetMapping
 	public GameServerModel load() {
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		
 		try {
+			JediAcademyServerManager jediAcademyServerManager = new JediAcademyServerManager();
 			JediAcademyServerConnector connector = new JediAcademyServerConnector(server.getIp(), server.getPort());
-
-			JediAcademyServerManager jediAcademyServerManager = new JediAcademyServerManager(connector);
 			
-			List<String> players = jediAcademyServerManager.asAnonymous().getPLayers();
-			
-			Map<ServerStatusType, String> status = jediAcademyServerManager.asAnonymous().getStatus();
+			List<String> players = jediAcademyServerManager.asAnonymous(connector).getPLayers();
+			Map<ServerStatusType, String> status = jediAcademyServerManager.asAnonymous(connector).getStatus();
 			
 			GameServerModel overview = new GameServerModel();
 			overview.parse(status);

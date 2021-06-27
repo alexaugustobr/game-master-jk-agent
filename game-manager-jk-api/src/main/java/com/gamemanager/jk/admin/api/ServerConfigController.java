@@ -1,7 +1,7 @@
 package com.gamemanager.jk.admin.api;
 
 import com.gamemanager.jk.admin.config.ConfigDataLoader;
-import com.gamemanager.jk.admin.domain.server.Server;
+import com.gamemanager.GameServerConfig;
 import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import com.gamemanager.jk.admin.domain.user.UserEntity;
 import lombok.AllArgsConstructor;
@@ -36,7 +36,7 @@ public class ServerConfigController {
 	@GetMapping("/download")
 	public ResponseEntity<Resource> download(@AuthenticationPrincipal UserEntity user) throws FileNotFoundException {
 		
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		File file = new File(server.getConfigPath());
 		InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 		
@@ -48,7 +48,7 @@ public class ServerConfigController {
 	
 	@PutMapping("/upload")
 	public ResponseEntity<Void> upload(MultipartFile file) {
-		Server server = serverRepository.loadCurrent();
+		GameServerConfig server = serverRepository.loadCurrent();
 		try {
 			String bkpPath = String.format(server.getConfigPath() + ".bkp-%s", OffsetDateTime.now().toString());
 			log.info("Backup file created: "+ bkpPath);

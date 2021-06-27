@@ -1,6 +1,6 @@
 package com.gamemanager.jk.admin.config;
 
-import com.gamemanager.jk.admin.domain.server.Server;
+import com.gamemanager.GameServerConfig;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -34,11 +34,13 @@ public class ServerProperties {
 	
 	private String soutCommand;
 	
-	private Server.Type type;
+	private GameServerConfig.Type type;
 	
 	private String serverHomePath;
-	
-	private String jampFolderPath;
+
+	private String jampPath;
+
+	private String mb2Path;
 	
 	private String rtvPath;
 	

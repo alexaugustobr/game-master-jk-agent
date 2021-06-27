@@ -1,12 +1,13 @@
 package com.gamemanager.jk.admin.domain.server;
 
+import com.gamemanager.GameServerConfig;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ServerRepository {
 	
-	Server loadCurrent();
+	GameServerConfig loadCurrent();
 	
-	Server store(Server server);
+	GameServerConfig store(GameServerConfig server);
 	
 }

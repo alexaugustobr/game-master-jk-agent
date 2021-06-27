@@ -1,4 +1,4 @@
-package com.gamemanager.jk.admin.domain.server;
+package com.gamemanager;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +13,7 @@ import java.io.File;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Server {
+public class GameServerConfig {
 	
 	private String name;
 	
@@ -43,7 +43,9 @@ public class Server {
 	
 	private String serverHomePath;
 	
-	private String jampFolderPath;
+	private String jampPath;
+	
+	private String mb2Path;
 	
 	private String zipLogPath;
 	
