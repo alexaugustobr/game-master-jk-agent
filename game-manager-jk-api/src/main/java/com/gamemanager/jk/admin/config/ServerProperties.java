@@ -5,11 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 @Getter
 @Setter
 @Component
 @ConfigurationProperties("jk.server")
+@Validated
 public class ServerProperties {
 	
 	private String ip;
@@ -45,5 +47,5 @@ public class ServerProperties {
 	private String rtvPath;
 	
 	private String rtvRestartCommand;
-
+	
 }

@@ -87,6 +87,45 @@ public class JediAcademyServerManager {
 			return gameMaps;
 		}
 
+		public List<GameFile> getGameFiles() {
+
+			Path mb2Path = Paths.get(config.getMb2Path());
+
+			File[] files = mb2Path.toFile().listFiles(File::isFile);
+			List<GameFile> gameFiles = new ArrayList<>();
+
+			if (files != null) {
+				for (File file : files) {
+					try {
+						FileTime creationTime = (FileTime) Files.getAttribute(file.toPath(), "creationTime");
+						gameFiles.add(new GameFile(file.getName(),
+								OffsetDateTime.ofInstant(creationTime.toInstant(), ZoneId.systemDefault())
+						));
+					} catch (IOException e) {
+						log.error("Exception occurred while trying to read the file", e);
+					}
+				}
+			}
+
+			return gameFiles;
+		}
+
+		public void deleteFileByName(String fileName) {
+			Path mb2Path = Paths.get(config.getMb2Path());
+
+			Optional<File> gamePk3File = Arrays.stream(mb2Path.toFile()
+					.listFiles())
+					.filter(o -> o.getName().equalsIgnoreCase(fileName)).findAny();
+
+			File file = gamePk3File.orElseThrow(RuntimeException::new);
+			try {
+				Files.deleteIfExists(file.toPath());
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+
+		}
+
 		public void deleteMapByName(String fileName) {
 			Path mb2Path = Paths.get(config.getMb2Path());
 
