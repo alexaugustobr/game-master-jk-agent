@@ -16,41 +16,24 @@ import java.io.File;
 public class GameServerConfig {
 	
 	private String name;
-	
 	private String ip;
-	
 	private int port;
-	
 	private String rconPass;
-	
 	private String configPath;
-	
 	private String logPath;
-	
+	private String tailLogCommand;
+	private String tailRtvLogCommand;
 	private String openJKLogPath;
-	
 	private String restartCommand;
-	
 	private String poweroffCommand;
-	
 	private String poweronCommand;
-	
 	private String updateCommand;
-	
-	private String soutCommand;
-	
 	private Type type;
-	
 	private String serverHomePath;
-	
 	private String jampPath;
-	
 	private String mb2Path;
-	
 	private String zipLogPath;
-	
 	private String rtvPath;
-	
 	private String rtvRestartCommand;
 	
 	public String getNameWithoutColors() {

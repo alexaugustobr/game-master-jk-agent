@@ -24,15 +24,11 @@ public class ConfigDataLoader implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		log.warn("Loading properties");
-		System.out.println("Loading properties");
 		load();
 	}
 	
 	public void load() throws IOException {
 		String configPath = properties.getConfigPath();
-		log.warn("Properties = " + properties);
-		System.out.println(properties);
 		ConfigManager configManager = new ConfigManager(configPath);
 		
 		String rcon = configManager.getConfig(ConfigManager.ConfigKey.RCON_PASSWORD).orElse("rcon");
@@ -44,6 +40,8 @@ public class ConfigDataLoader implements ApplicationRunner {
 				.type(properties.getType())
 				.logPath(properties.getLogPath())
 				.openJKLogPath(properties.getOpenJKLogPath())
+				.tailLogCommand(properties.getTailLogCommand())
+				.tailRtvLogCommand(properties.getTailRtvLogCommand())
 				.zipLogPath(properties.getZipLogPath())
 				.configPath(configPath)
 				.serverHomePath(properties.getServerHomePath())

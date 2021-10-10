@@ -13,37 +13,22 @@ import org.springframework.validation.annotation.Validated;
 public class ServerProperties {
 	
 	private String ip;
-	
 	private int port;
-	
 	private String configPath;
-	
 	private String logPath;
-	
 	private String openJKLogPath;
-
 	private String zipLogPath;
-	
 	private String restartCommand;
-	
 	private String poweroffCommand;
-	
 	private String poweronCommand;
-	
 	private String updateCommand;
-	
-	private String soutCommand;
-	
+	private String tailLogCommand;
+	private String tailRtvLogCommand;
 	private GameServerConfig.Type type;
-	
 	private String serverHomePath;
-
 	private String jampPath;
-
 	private String mb2Path;
-	
 	private String rtvPath;
-	
 	private String rtvRestartCommand;
 	
 }
