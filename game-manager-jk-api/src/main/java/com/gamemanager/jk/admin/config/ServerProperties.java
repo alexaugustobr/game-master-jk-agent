@@ -1,17 +1,15 @@
 package com.gamemanager.jk.admin.config;
 
 import com.gamemanager.GameServerConfig;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-@Getter
-@Setter
 @Component
 @ConfigurationProperties("jk.server")
 @Validated
+@Data
 public class ServerProperties {
 	
 	private String ip;

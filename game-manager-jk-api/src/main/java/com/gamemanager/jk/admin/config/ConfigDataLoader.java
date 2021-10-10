@@ -6,6 +6,7 @@ import com.gamemanager.jk.admin.domain.server.ServerRepository;
 import com.gamemanager.jk.admin.domain.user.UserEntity;
 import com.gamemanager.jk.admin.domain.user.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class ConfigDataLoader implements ApplicationRunner {
 	
 	private final UserRepository userRepository;
@@ -22,11 +24,15 @@ public class ConfigDataLoader implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
+		log.warn("Loading properties");
+		System.out.println("Loading properties");
 		load();
 	}
 	
 	public void load() throws IOException {
 		String configPath = properties.getConfigPath();
+		log.warn("Properties = " + properties);
+		System.out.println(properties);
 		ConfigManager configManager = new ConfigManager(configPath);
 		
 		String rcon = configManager.getConfig(ConfigManager.ConfigKey.RCON_PASSWORD).orElse("rcon");

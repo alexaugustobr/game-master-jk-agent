@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -24,5 +24,12 @@
     <orderEntry type="library" name="Maven: com.kohlschutter.junixsocket:junixsocket-common:2.0.4" level="project" />
     <orderEntry type="library" name="Maven: net.java.dev.jna:jna-platform:5.5.0" level="project" />
     <orderEntry type="library" name="Maven: net.java.dev.jna:jna:5.5.0" level="project" />
+  </component>
+  <component name="sonarModuleSettings">
+    <option name="alternativeWorkingDirPath" value="" />
+    <option name="localAnalysisScripName" value="&lt;PROJECT&gt;" />
+    <option name="serverName" value="&lt;PROJECT&gt;" />
+    <option name="useAlternativeWorkingDir" value="false" />
+    <option name="workingDirSelection" value="&lt;MODULE&gt;" />
   </component>
 </module>

@@ -1,5 +1,6 @@
 package com.gamemanager.jk.admin.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,11 +15,19 @@ import java.util.Collections;
 @Configuration
 public class CorsConfig {
 	
+	@Value("${allowedOrigins:*}")
+	private String[] allowedOrigins;
+	
 	@Bean
 	public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean() {
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:8080", "http://159.69.214.101:4200", "http://159.69.214.101"));
+		if (allowedOrigins[0].equals("*")) {
+			config.setAllowCredentials(false);
+		} else {
+			config.setAllowCredentials(true);
+		}
+		
+		config.setAllowedOrigins(Arrays.asList(allowedOrigins));
 		config.setAllowedMethods(Collections.singletonList("*"));
 		config.setAllowedHeaders(Collections.singletonList("*"));
 		

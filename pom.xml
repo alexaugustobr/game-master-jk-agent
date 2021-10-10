@@ -13,8 +13,8 @@
 <!--  </parent>-->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
 
 <!--    <jacoco.version>0.8.3</jacoco.version>-->
 <!--    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>-->
@@ -34,12 +34,7 @@
   </modules>
 
   <dependencies>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.12</version>
-      <scope>provided</scope>
-    </dependency>
+
 
 <!--    <dependency>-->
 <!--      <groupId>org.apache.logging.log4j</groupId>-->
@@ -86,7 +81,12 @@
 <!--      <artifactId>logback-classic</artifactId>-->
 <!--      <version>1.1.7</version>-->
 <!--    </dependency>-->
-
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.12</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-all</artifactId>
