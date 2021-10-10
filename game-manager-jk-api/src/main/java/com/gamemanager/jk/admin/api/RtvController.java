@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -47,25 +48,20 @@ public class RtvController {
 	private final ServerRepository serverRepository;
 	private final DefaultExecutor executor = new DefaultExecutor();
 	
-	@GetMapping
-	public String configUpload(@AuthenticationPrincipal UserEntity user) {
-		return "rtv";
-	}
-	
-	@GetMapping("/restart")
-	public String restart(@AuthenticationPrincipal UserEntity user,  RedirectAttributes attributes) {
+	@PutMapping("/restart")
+	public ResponseEntity<?> restart(@AuthenticationPrincipal UserEntity user,  RedirectAttributes attributes) {
 		GameServerConfig server = serverRepository.loadCurrent();
 		try {
 			executeCommand(server.getRtvRestartCommand());
 			String msg = "RTV is restarting!";
 			log.info(msg);
 			attributes.addFlashAttribute("message", MessageModel.success(msg));
-			return "redirect:/server/rtv";
+			return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			String msg = String.format("Error when trying to restart RTV %s:%s.", server.getIp(), server.getPort());
 			log.error(msg, e);
 			attributes.addFlashAttribute("message", MessageModel.danger(msg));
-			return "redirect:/server/rtv";
+			return ResponseEntity.internalServerError().build();
 		}
 	}
 	
@@ -109,71 +105,59 @@ public class RtvController {
 	}
 	
 	@PostMapping("/rtvrtm")
-	public String uploadConfig(@AuthenticationPrincipal UserEntity user,
-						 RedirectAttributes attributes,
-						 MultipartFile file) {
+	public ResponseEntity<?> uploadConfig(MultipartFile file) {
 		GameServerConfig server = serverRepository.loadCurrent();
 		try {
-			String bkpPath = String.format(server.getConfigPath() + ".bkp-%s", OffsetDateTime.now().toString());
+			String bkpPath = String.format(server.getRtvPath() + "/rtvrtm.cfg.bkp-%s", OffsetDateTime.now().toString());
 			log.info("Backup file created: "+ bkpPath);
 			Files.copy(Paths.get(server.getRtvPath(), "rtvrtm.cfg"), Paths.get(bkpPath));
 			file.transferTo(Paths.get(server.getRtvPath(), "rtvrtm.cfg").toFile());
 			//configDataLoader.load();
 			String msg = "Restart RTV to apply the config!";
 			log.info(msg);
-			attributes.addFlashAttribute("message", MessageModel.success(msg));
-			return "redirect:/server/rtv";
+			return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			String msg = String.format("Error when trying update the RTV config %s:%s.", server.getIp(), server.getPort());
 			log.error(msg, e);
-			attributes.addFlashAttribute("message", MessageModel.danger(msg));
-			return "redirect:/server/rtv";
+			return ResponseEntity.internalServerError().build();
 		}
 	}
 	
 	@PostMapping("/primary-maps")
-	public String uploadPrimaryMaps(@AuthenticationPrincipal UserEntity user,
-							   RedirectAttributes attributes,
-							   MultipartFile file) {
+	public ResponseEntity<?> uploadPrimaryMaps(MultipartFile file) {
 		GameServerConfig server = serverRepository.loadCurrent();
 		try {
-			String bkpPath = String.format(server.getConfigPath() + ".bkp-%s", OffsetDateTime.now().toString());
+			String bkpPath = String.format(server.getRtvPath() + "/maps.txt.bkp-%s", OffsetDateTime.now().toString());
 			log.info("Backup file created: "+ bkpPath);
 			Files.copy(Paths.get(server.getRtvPath(), "maps.txt"), Paths.get(bkpPath));
 			file.transferTo(Paths.get(server.getRtvPath(), "maps.txt").toFile());
 			//configDataLoader.load();
 			String msg = "Restart RTV to apply the config!";
 			log.info(msg);
-			attributes.addFlashAttribute("message", MessageModel.success(msg));
-			return "redirect:/server/rtv";
+			return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			String msg = String.format("Error when trying update the primary map list %s:%s.", server.getIp(), server.getPort());
 			log.error(msg, e);
-			attributes.addFlashAttribute("message", MessageModel.danger(msg));
-			return "redirect:/server/rtv";
+			return ResponseEntity.internalServerError().build();
 		}
 	}
 	
 	@PostMapping("/secondary-maps")
-	public String uploadSecondaryMaps(@AuthenticationPrincipal UserEntity user,
-							   RedirectAttributes attributes,
-							   MultipartFile file) {
+	public ResponseEntity<?> uploadSecondaryMaps(MultipartFile file) {
 		GameServerConfig server = serverRepository.loadCurrent();
 		try {
-			String bkpPath = String.format(server.getConfigPath() + ".bkp-%s", OffsetDateTime.now().toString());
+			String bkpPath = String.format(server.getRtvPath() + "/secondary_maps.txt.bkp-%s", OffsetDateTime.now().toString());
 			log.info("Backup file created: "+ bkpPath);
 			Files.copy(Paths.get(server.getRtvPath(), "secondary_maps.txt"), Paths.get(bkpPath));
 			file.transferTo(Paths.get(server.getRtvPath(), "secondary_maps.txt").toFile());
 			//configDataLoader.load();
 			String msg = "Restart RTV to apply the config!";
 			log.info(msg);
-			attributes.addFlashAttribute("message", MessageModel.success(msg));
-			return "redirect:/server/rtv";
+			return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			String msg = String.format("Error when trying update the secondary map list %s:%s.", server.getIp(), server.getPort());
 			log.error(msg, e);
-			attributes.addFlashAttribute("message", MessageModel.danger(msg));
-			return "redirect:/server/rtv";
+			return ResponseEntity.internalServerError().build();
 		}
 	}
 
