@@ -123,7 +123,7 @@ public class RtvController {
 		}
 	}
 	
-	@PostMapping("/primary-maps")
+	@PostMapping("/maps.txt")
 	public ResponseEntity<?> uploadPrimaryMaps(MultipartFile file) {
 		GameServerConfig server = serverRepository.loadCurrent();
 		try {
@@ -142,7 +142,7 @@ public class RtvController {
 		}
 	}
 	
-	@PostMapping("/secondary-maps")
+	@PostMapping("/secondary_maps.txt")
 	public ResponseEntity<?> uploadSecondaryMaps(MultipartFile file) {
 		GameServerConfig server = serverRepository.loadCurrent();
 		try {
